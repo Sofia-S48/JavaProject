@@ -9,7 +9,7 @@ public abstract class Event {
     protected Organizer organizer;
 
 
-    public Event(int eventId, String name, String date, int maxParticipants, Organizer organizer) {
+    public Event(int eventId, String name, Date date, int maxParticipants, Organizer organizer) {
         this.eventId = eventId;
         this.name = name;
         this.date = date;
@@ -68,7 +68,5 @@ public abstract class Event {
                 '}';
     }
 
-    public void addRegistration(Registration r) {
-        registrations.add(r);
-    }
+
 }
