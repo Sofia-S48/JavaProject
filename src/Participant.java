@@ -1,13 +1,17 @@
-public class Participant {
+import java.util.Date;
+
+public class Participant extends Event {
     private int participantId;
-    private String name;
+    private String participantName;
     private String contactInformation;
 
-    public Participant(int participantId, String name, String contactInformation) {
+    public Participant(int eventId, String name, Date date, int maxParticipants, Organizer organizer, int participantId, String participantName, String contactInformation) {
+        super(eventId, name, date, maxParticipants, organizer);
         this.participantId = participantId;
         this.name = name;
         this.contactInformation = contactInformation;
     }
+
 
     public int getParticipantId() {
         return participantId;
@@ -17,12 +21,12 @@ public class Participant {
         this.participantId = participantId;
     }
 
-    public String getName() {
-        return name;
+    public String getParticipantName() {
+        return participantName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setParticipantName(String participantName) {
+        this.participantName = participantName;
     }
 
     public String getContactInformation() {
@@ -37,7 +41,7 @@ public class Participant {
     public String toString() {
         return "Participant{" +
                 "participantId=" + participantId +
-                " name=" + name + " " +
+                " name=" + participantName + " " +
                 ", contactInformation=" + contactInformation + "}";
     }
 }
