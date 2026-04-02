@@ -1,5 +1,7 @@
+package Model;
+
 import java.util.Date;
-public class Professional extends Event{
+public class Professional extends Event {
     public String subject;
     public String industry;
 

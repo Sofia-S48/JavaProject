@@ -1,3 +1,5 @@
+package Model;
+
 import java.util.Date;
 public class Social extends Event {
     private String theme;

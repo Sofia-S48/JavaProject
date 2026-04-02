@@ -1,3 +1,5 @@
+package Model;
+
 import java.util.Date;
 
 
@@ -59,7 +61,7 @@ public abstract class Event {
 
     @Override
     public String toString() {
-        return "Event{" +
+        return "Model.Event{" +
                 "eventId=" + eventId +
                 ", name='" + name + '\'' +
                 ", date='" + date + '\'' +
