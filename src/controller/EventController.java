@@ -1,5 +1,7 @@
 package controller;
 
+import Model.Event;
+
 import java.util.ArrayList;
 public class EventController {
     private ArrayList<Event> events;

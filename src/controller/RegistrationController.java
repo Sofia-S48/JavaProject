@@ -1,5 +1,7 @@
 package controller;
 
+import Model.Registration;
+
 import java.util.ArrayList;
 
 public class RegistrationController {

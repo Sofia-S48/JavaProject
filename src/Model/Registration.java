@@ -2,18 +2,25 @@ package Model;
 
 import java.util.Date;
 
-public class Registration extends Event {
-    private String attendeeName;
-    private Event event;
+public class Registration  {
+    private int registrationId;
+    private int eventId;
+    private int participantId;
+    private Date registrationDate;
 
-    public Registration(int eventId, String name, Date date, int maxParticipants, Organizer organizer, String attendeeName, Event event) {
-        super(eventId, name, date, maxParticipants, organizer);
-        this.attendeeName = attendeeName;
-        this.event = event;
+    public Registration(int registrationId, int eventId, int participantId, Date registrationDate) {
+        this.registrationId = registrationId;
+        this.eventId = eventId;
+        this.participantId = participantId;
+        this.registrationDate = registrationDate;
     }
+    public int getRegistrationId(){return registrationId;}
+    public int getEventId(){return eventId;}
+    public int getParticipantId(){return participantId;}
+    public Date getRegistrationDate(){return registrationDate;}
 
-
-    public void displayRegistration() {
-        System.out.println(attendeeName + " registered for " + event.name + event.eventId);
+    public void displayRegistration()
+    {
+        System.out.println("Participant "+ participantId+ " registered for event" + eventId);
     }
 }

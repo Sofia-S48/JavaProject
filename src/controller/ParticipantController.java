@@ -1,5 +1,7 @@
 package controller;
 
+import Model.Participant;
+
 import java.util.ArrayList;
 
 public class ParticipantController {
