@@ -1,3 +1,3 @@
-public interface Registrable {
+public interface iRegistrable {
     public void register(String atendeeName);
 }

@@ -1,21 +1,45 @@
+import java.util.ArrayList;
 import java.util.Date;
 
 
-public abstract class Event {
+public class Event {
     protected int eventId;
     protected String name;
     protected Date date;
     protected int maxParticipants;
     protected Organizer organizer;
+    private ArrayList<Participant> participants;
 
 
-    public Event(int eventId, String name, String date, int maxParticipants, Organizer organizer) {
+
+    public Event(int eventId, String name, Date date, int maxParticipants, Organizer organizer) {
         this.eventId = eventId;
         this.name = name;
         this.date = date;
         this.maxParticipants = maxParticipants;
         this.organizer = organizer;
+        participants = new ArrayList<>();
     }
+
+    public Event(String eventName) {
+    }
+
+    public void registerParticpant(Participant participant){
+        participants.add(participant);
+        System.out.println(participant.getName() + "registered");
+    }
+
+    public void showParticipants(){
+        System.out.println("\nParticipants in " + name + ":");
+        if (participants.isEmpty()) {
+            System.out.println("No participants registered");
+            return;
+        }
+        for( Participant participant : participants){
+            System.out.println("- " + participant );
+        }
+    }
+
 
     public int getEventId() {
         return eventId;
@@ -70,5 +94,8 @@ public abstract class Event {
 
     public void addRegistration(Registration r) {
         registrations.add(r);
+    }
+
+    public void registerParticipant(Participant participant) {
     }
 }
