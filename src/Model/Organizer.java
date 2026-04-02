@@ -5,13 +5,13 @@ public class Organizer {
     public String name;
     public String email;
 
-    public Organizer(int organizerId, String name, String email) {
+    public Organizer(String organizerId, String name, String email) {
         this.organizerId = organizerId;
         this.name = name;
         this.email = email;
     }
 
-    public int getOrganizerId() {
+    public String getOrganizerId() {
         return organizerId;
     }
 
