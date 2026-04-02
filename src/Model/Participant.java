@@ -36,6 +36,7 @@ public class Participant extends Event {
         return contactInformation;
     }
 
+
     public void setContactInformation(String contactInformation) {
         this.contactInformation = contactInformation;
     }
