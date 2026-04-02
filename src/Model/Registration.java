@@ -1,6 +1,8 @@
+package Model;
+
 import java.util.Date;
 
-public class Registration extends Event{
+public class Registration extends Event {
     private String attendeeName;
     private Event event;
 

@@ -1,3 +1,5 @@
+package Model;
+
 import java.util.Date;
 
 public class Participant extends Event {
@@ -39,7 +41,7 @@ public class Participant extends Event {
 
     @Override
     public String toString() {
-        return "Participant{" +
+        return "Model.Participant{" +
                 "participantId=" + participantId +
                 " name=" + participantName + " " +
                 ", contactInformation=" + contactInformation + "}";
