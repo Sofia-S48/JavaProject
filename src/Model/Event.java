@@ -1,3 +1,5 @@
+package Model;
+
 import java.util.Date;
 
 
@@ -9,7 +11,7 @@ public abstract class Event {
     protected Organizer organizer;
 
 
-    public Event(int eventId, String name, String date, int maxParticipants, Organizer organizer) {
+    public Event(int eventId, String name, Date date, int maxParticipants, Organizer organizer) {
         this.eventId = eventId;
         this.name = name;
         this.date = date;
@@ -59,16 +61,12 @@ public abstract class Event {
 
     @Override
     public String toString() {
-        return "Event{" +
+        return "Model.Event{" +
                 "eventId=" + eventId +
                 ", name='" + name + '\'' +
                 ", date='" + date + '\'' +
                 ", maxParticipants=" + maxParticipants +
                 ", organizer=" + organizer +
                 '}';
-    }
-
-    public void addRegistration(Registration r) {
-        registrations.add(r);
     }
 }

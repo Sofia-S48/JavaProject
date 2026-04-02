@@ -1,7 +1,10 @@
+package Model;
+
+import java.util.Date;
 public class Social extends Event {
     private String theme;
 
-    public Social(int eventId, String name, String date, int maxParticipants, Organizer organizer, String theme) {
+    public Social(int eventId, String name, Date date, int maxParticipants, Organizer organizer, String theme) {
         super(eventId, name, date, maxParticipants, organizer);
         this.theme= theme;
     }
