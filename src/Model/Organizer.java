@@ -1,21 +1,21 @@
 package Model;
 
 public class Organizer {
-    public int organizerId;
+    public String organizerId;
     public String name;
     public String email;
 
-    public Organizer(String organizerId, String name, String email) {
+    public Organizer(int organizerId, String name, String email) {
         this.organizerId = organizerId;
         this.name = name;
         this.email = email;
     }
 
-    public String getOrganizerId() {
+    public int getOrganizerId() {
         return organizerId;
     }
 
-    public void setOrganizerId(int organizerId) {
+    public void setOrganizerId(String organizerId) {
         this.organizerId = organizerId;
     }
 
