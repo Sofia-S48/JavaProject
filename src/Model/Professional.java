@@ -1,9 +1,12 @@
-public class Professional extends Event{
+package Model;
+
+import java.util.Date;
+public class Professional extends Event {
     public String subject;
     public String industry;
 
 
-    public Professional(int eventId, String name, String date, int maxParticipants, Organizer organizer, String subject, String industry) {
+    public Professional(int eventId, String name, Date date, int maxParticipants, Organizer organizer, String subject, String industry) {
         super(eventId, name, date, maxParticipants, organizer);
         this.subject = subject;
         this.industry = industry;
