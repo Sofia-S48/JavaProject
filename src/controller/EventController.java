@@ -24,20 +24,7 @@ public class EventController {
         }
         return null;
     }
-
-    public boolean removeEvent(int id)
-    {
-        for (int i = 0; i < events.size(); i++) {
-            Event event = events.get(i);
-
-            if (event.getEventId() == id) // this is used to check if the event ID matches the one to be deleted.
-            {
-                events.remove(i);
-                return true; //stop once event is removed.
-            }
-        }
-        return false; // this is if the loop never finds a matching index.
-    }
+    // removeEvent
 
     public ArrayList<Event> getAllEvents() {
         return events;
