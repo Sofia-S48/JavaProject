@@ -46,6 +46,8 @@ public class Participant extends Event {
         this.contactInformation = contactInformation;
     }
 
+
+
     @Override
     public String toString() {
         return "Model.Participant{" +
