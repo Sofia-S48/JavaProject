@@ -1,21 +1,8 @@
 package DAO;
 
-import DB.DbConnection;
-import Model.Organizer;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import static jdk.internal.org.jline.utils.Colors.s;
-
 public class OrganizerDAO {
     //    add, getall, getbyid, update
-
-    public void addOrganizer(Organizer o) throws SQLException {
+  public void addOrganizer(Organizer o) throws SQLException {
         try {
             String query =" insert into Organizer (organizer_id, name, email)  Values (?,?,?)";
 
@@ -162,5 +149,4 @@ public class OrganizerDAO {
             e.printStackTrace();
         }
     }
-
 }

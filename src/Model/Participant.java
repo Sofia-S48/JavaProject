@@ -11,7 +11,7 @@ public class Participant extends Event {
     {
         super(eventId, name, date, maxParticipants, organizer);
         this.participantId = participantId;
-        this.name = name;
+        this.participantName = participantName;
         this.contactInformation = contactInformation;
     }
 
