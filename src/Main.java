@@ -1,3 +1,5 @@
+import Model.Event;
+import Model.Participant;
 import java.util.Scanner;
 
 public class Main {
@@ -19,10 +21,33 @@ public class Main {
             scanner.nextLine();
 
             switch (choice) {
+
                 case 1:
+                    System.out.println("What type of event would you like to create?");
+                    System.out.println("1. Professional");
+                    System.out.println("2. Social");
+                    System.out.println("3. Academic");
+                    int eventType = scanner.nextInt();
+                    scanner.nextLine();
+
                     System.out.print("Enter event name: ");
                     String eventName = scanner.nextLine();
-                    event = new Event(eventName);
+
+                    switch (eventType) {
+                        case 1:
+                            event = new Event(eventName, "Professional");
+                            break;
+                        case 2:
+                            event = new Event(eventName, "Social");
+                            break;
+                        case 3:
+                            event = new Event(eventName, "Academic");
+                            break;
+                        default:
+                            System.out.println("Invalid choice");
+                            break;
+                    }
+
                     System.out.println("Event created successfully!");
                     break;
 
@@ -36,11 +61,10 @@ public class Main {
                     String name = scanner.nextLine();
 
                     System.out.print("Enter participant ID: ");
-                    int age = scanner.nextInt();
+                    int participantId = scanner.nextInt();
                     scanner.nextLine();
 
-
-                    Participant participant = new Participant(name, id);
+                    Participant participant = new Participant(name, participantId);
                     event.registerParticipant(participant);
                     break;
 
@@ -48,7 +72,7 @@ public class Main {
                     if (event == null) {
                         System.out.println("No event created yet.");
                     } else {
-                        Event.showParticipants();
+                        event.showParticipants();
                     }
                     break;
 

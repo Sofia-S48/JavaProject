@@ -1,3 +1,5 @@
+package Model;
+
 import java.util.Date;
 
 public class Participant extends Event {
@@ -5,11 +7,17 @@ public class Participant extends Event {
     private String participantName;
     private String contactInformation;
 
-    public Participant(int eventId, String name, Date date, int maxParticipants, Organizer organizer, int participantId, String participantName, String contactInformation) {
+    public Participant(int eventId, String name, Date date, int maxParticipants, Organizer organizer, int participantId, String participantName, String contactInformation)
+    {
         super(eventId, name, date, maxParticipants, organizer);
         this.participantId = participantId;
         this.name = name;
         this.contactInformation = contactInformation;
+    }
+
+
+    public Participant(String participantNameName, int participantId) {
+        super(name, participantId);
     }
 
 
@@ -33,13 +41,14 @@ public class Participant extends Event {
         return contactInformation;
     }
 
+
     public void setContactInformation(String contactInformation) {
         this.contactInformation = contactInformation;
     }
 
     @Override
     public String toString() {
-        return "Participant{" +
+        return "Model.Participant{" +
                 "participantId=" + participantId +
                 " name=" + participantName + " " +
                 ", contactInformation=" + contactInformation + "}";

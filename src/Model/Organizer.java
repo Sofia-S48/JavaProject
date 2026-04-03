@@ -1,5 +1,7 @@
+package Model;
+
 public class Organizer {
-    public int organizerId;
+    public String organizerId;
     public String name;
     public String email;
 
@@ -13,7 +15,7 @@ public class Organizer {
         return organizerId;
     }
 
-    public void setOrganizerId(int organizerId) {
+    public void setOrganizerId(String organizerId) {
         this.organizerId = organizerId;
     }
 
@@ -35,7 +37,7 @@ public class Organizer {
 
     @Override
     public String toString() {
-        return "Organizer{" +
+        return "Model.Organizer{" +
                 "organizerId=" + organizerId +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
