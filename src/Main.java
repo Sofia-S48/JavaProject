@@ -1,3 +1,6 @@
+import Model.Participant;
+import jdk.jfr.Event;
+
 import java.util.Scanner;
 
 public class Main {
@@ -19,14 +22,25 @@ public class Main {
             scanner.nextLine();
 
             switch (choice) {
+
                 case 1:
+                    System.out.println("What type of event would you like to create?");
+                    System.out.println("1. Professional");
+                    System.out.println("2. Social");
+                    System.out.println("3. Academic");
+                    int eventType  = scanner.nextInt();
+                    switch (eventType) {
+
+
+                    }
                     System.out.print("Enter event name: ");
                     String eventName = scanner.nextLine();
-                    event = new Event(eventName);
+
                     System.out.println("Event created successfully!");
                     break;
 
                 case 2:
+                    //ask event id, if event id is not found
                     if (event == null) {
                         System.out.println("Please create an event first.");
                         break;
