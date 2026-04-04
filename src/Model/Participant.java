@@ -10,7 +10,7 @@ public class Participant  { // changed class to not extend Event.
     public Participant(int participantId, String participantName, String contactInformation)
     {
         this.participantId = participantId;
-        this.participantName = participantName;
+        this.name = name;
         this.contactInformation = contactInformation;
     }
 
