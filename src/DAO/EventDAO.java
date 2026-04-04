@@ -4,8 +4,6 @@ import Model.Academic;
 import Model.Event;
 import DB.DbConnection;
 import Model.Organizer;
-import Model.Registration;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,25 +18,29 @@ public class EventDAO {
     //    // CRUD of Event
 //
 //        // 1- add Event
-    public void addOrganizer(Organizer o) throws SQLException {
+    public void addEvent(Event e) throws SQLException {
         try {
-            String query = " INSERT INTO Organizer (organizer_id, name, email)  VALUES (?,?,?)";
+            String query = " INSERT INTO Events (name, date, max_participants, organizer_id)  VALUES (?, ?, ?, ?)"; //mixed up organizer constructor with event.
 
             Connection myConnection = DbConnection.getConnection();
             if (myConnection != null) {
                 PreparedStatement myQuery = myConnection.prepareStatement(query);
-                myQuery.setInt(1, o.getOrganizerId());
-                myQuery.setString(2, o.getName());
-                myQuery.setString(3, o.getEmail());
-                myQuery.executeUpdate();
-                System.out.println("Organizer added successfully");
+                myQuery.setString(1, e.getName());
+                myQuery.setDate(2, new java.sql.Date(e.getDate().getTime()));
+                myQuery.setInt(3, e.getMaxParticipants());
+                myQuery.setInt(4, e.getOrganizer().getOrganizerId());
 
+                int rowsInserted = myQuery.executeUpdate();
+
+                if (rowsInserted > 0) {
+                    System.out.println("Event added successfully.");
+                } else {
+                    System.out.println("Event was not added.");
+                }
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception e1) {
+            e1.printStackTrace();
         }
-
     }
 
     public void removeEvent(int eventId) throws SQLException {
@@ -113,7 +115,7 @@ public class EventDAO {
                     int organizerId = eventResults.getInt("organizer_id");
 
                     Organizer organizer = new Organizer(organizerId, "", "");
-                    //need help.
+
                     Event ev = new Academic(eventId, name, date, maxParticipants, organizer, "", ""); //*Academic is acting as a placeholder for now because event is abstract.
                     allEvents.add(ev);
                 }

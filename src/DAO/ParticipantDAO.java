@@ -2,8 +2,6 @@ package DAO;
 
 import DB.DbConnection;
 import Model.Participant;
-import Model.Registration;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,15 +15,16 @@ public class ParticipantDAO {
 //        // 1- add participant
     public void addParticipant(Participant p) throws SQLException {
         try {
-            String query = "INSERT INTO Participant (participant_id, participant_name, contact_information)  Values (?,?,?)";
+            String query = "INSERT INTO Participant (participant_name, contact_information)  Values (?,?)"; // in our database script, participantid is auto incremented so we don't need 3 ?.
+
 
             Connection myConnection = DbConnection.getConnection();
             if (myConnection != null) {
 
                 PreparedStatement statement = myConnection.prepareStatement(query);
-                statement.setInt(1, p.getParticipantId());
-                statement.setString(2, p.getParticipantName());
-                statement.setString(3, p.getContactInformation());
+                statement.setString(1, p.getParticipantName());
+                statement.setString(2, p.getContactInformation());
+                // removed p.getParticipantId because not needed anymore according to our database script.
 
                 int rowsInserted = statement.executeUpdate();
 
@@ -61,7 +60,7 @@ public class ParticipantDAO {
                     String name = participantResults.getString("participant_name");
                     String contact = participantResults.getString("contact_information");
 
-                    Participant participant1 = new Participant(0, null, null, 0, null, id, name, contact);
+                    Participant participant1 = new Participant(id, name, contact); // fixed as participant no longer extends from event.
                     allParticipants.add(participant1);
                 }
                 return allParticipants;
@@ -91,7 +90,7 @@ public class ParticipantDAO {
                     String name = participantResults.getString("participant_name");
                     String contact = participantResults.getString("contact_information");
 
-                    Participant participant1 = new Participant(0, null, null, 0, null, id, name, contact);
+                    Participant participant1 = new Participant(id, name, contact); // fixed as participant no longer extends from event.
                     return participant1;
                 }
             }
