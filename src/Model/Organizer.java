@@ -1,7 +1,7 @@
 package Model;
 
 public class Organizer {
-    public String organizerId;
+    public int organizerId;
     public String name;
     public String email;
 
@@ -15,7 +15,7 @@ public class Organizer {
         return organizerId;
     }
 
-    public void setOrganizerId(String organizerId) {
+    public void setOrganizerId(int organizerId) {
         this.organizerId = organizerId;
     }
 
