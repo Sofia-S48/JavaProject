@@ -12,56 +12,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParticipantDAO {
-// CRUD of Participant
+    // CRUD of Participant
 //
 //        // 1- add participant
-        public List<Participant> addParticipant(Participant p) throws SQLException {
-            try {
-                String query ="insert into Participant (participantId, participantName, contactInformation)  Values (?,?,?)";
+    public void addParticipant(Participant p) throws SQLException {
+        try {
+            String query = "INSERT INTO Participant (participant_id, participant_name, contact_information)  Values (?,?,?)";
 
-                Connection myconnection = DbConnection.getConnection();
-                if(myconnection !=null)
-                {
-                    try {
-                        PreparedStatement statement = myconnection.prepareStatement(query);
-                        //something to get participantId
-                        //something to get participantName
-                        //something to get contractInformation
+            Connection myConnection = DbConnection.getConnection();
+            if (myConnection != null) {
 
-                        //***** I think this is wrong.
-                        ResultSet eventResults = statement.executeQuery(query);
-                        List<Participant> allParticipants = new ArrayList<>();
+                PreparedStatement statement = myConnection.prepareStatement(query);
+                statement.setInt(1, p.getParticipantId());
+                statement.setString(2, p.getParticipantName());
+                statement.setString(3, p.getContactInformation());
 
-                        while(eventResults.next())
-                        {
-                            int id = eventResults.getInt("participantId");
-                            String name = eventResults.getString("participantName");
-                            String contact = eventResults.getString("contactInformation");
+                int rowsInserted = statement.executeUpdate();
 
-
-                            Participant participant1 = new Participant(0, null, null, 0, null, id, name, contact); // this needed to be changed because of the way our Participant class works.
-                            // these act as placeholders because the DAO is not fetching the event data yet.
-                            allParticipants.add(participant1);
-                        }
-                        return allParticipants;
-                    }
-                    catch(Exception e)
-                    {
-
-                    }
-
+                if (rowsInserted > 0) {
+                    System.out.println("Participant added successfully");
+                } else {
+                    System.out.println("Participant was not added");
                 }
-
             }
-            catch (Exception e )
+        } catch(Exception e)
             {
                 e.printStackTrace();
             }
-            return null;
         }
+
     public List<Participant> getAllParticipants() throws SQLException
     {
-        String query = "SELECT * FROM Partipant";
+        String query = "SELECT * FROM Participant";
 
         Connection myConnection = DbConnection.getConnection();
 
@@ -69,19 +51,19 @@ public class ParticipantDAO {
         {
             try{
                 PreparedStatement statement = myConnection.prepareStatement(query);
-                ResultSet participantResults= statement.executeQuery(query);
+                ResultSet participantResults= statement.executeQuery(); // removed query
 
                 List<Participant> allParticipants = new ArrayList<>();
 
                 while(participantResults.next())
                 {
-                    int id = participantResults.getInt("participantId");
-                    String name = participantResults.getString("participantName");
-                    String contact = participantResults.getString("contactInformation");
+                    int id = participantResults.getInt("participant_id");
+                    String name = participantResults.getString("participant_name");
+                    String contact = participantResults.getString("contact_information");
 
                     Participant participant1 = new Participant(0, null, null, 0, null, id, name, contact);
                     allParticipants.add(participant1);
-                };
+                }
                 return allParticipants;
             }
             catch (Exception e)
@@ -93,7 +75,7 @@ public class ParticipantDAO {
     }
     public Participant getById(int participantId) throws SQLException {
         try {
-            String query = "SELECT * FROM Participant WHERE participantId = ?";
+            String query = "SELECT * FROM Participant WHERE participant_id = ?";
 
             Connection myConnection = DbConnection.getConnection();
 
@@ -101,18 +83,17 @@ public class ParticipantDAO {
                 PreparedStatement statement = myConnection.prepareStatement(query);
                 statement.setInt(1, participantId);
 
-                ResultSet participantResults = statement.executeQuery(query);
+                ResultSet participantResults = statement.executeQuery(); // removed query
 
 
                 if (participantResults.next()) {
-                    int id = participantResults.getInt("participantId");
-                    String name = participantResults.getString("participantName");
-                    String contact = participantResults.getString("contactInformation");
+                    int id = participantResults.getInt("participant_id");
+                    String name = participantResults.getString("participant_name");
+                    String contact = participantResults.getString("contact_information");
 
-                    ///  *** NOT DONE NEED HELP HERE.
-
+                    Participant participant1 = new Participant(0, null, null, 0, null, id, name, contact);
+                    return participant1;
                 }
-
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -122,7 +103,7 @@ public class ParticipantDAO {
     }
     public void removeParticipant (int participantId) throws SQLException{
         try{
-            String query = "DELETE FROM Participant WHERE participantId = ?";
+            String query = "DELETE FROM Participant WHERE participant_id = ?";
 
             Connection myConnection = DbConnection.getConnection();
 

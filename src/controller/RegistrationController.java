@@ -1,6 +1,5 @@
 package controller;
 
-import Model.Participant;
 import Model.Registration;
 
 import java.util.ArrayList;
@@ -24,18 +23,7 @@ public class RegistrationController {
         }
         return null;
     }
-
-    public boolean removeRegistration(int index) {
-        for (int i = 0; i <registrations.size(); i++) //loop that goes through every index in the registration list.
-        {
-            if (i== index) // this is used to check if the index matches the one to be deleted.
-            {
-                registrations.remove(i);
-                return true; //stop once registration is removed.
-            }
-        }
-        return false; // this is if the loop never finds a matching index.
-    }
+    // RemoveRegistration**
 
     public ArrayList<Registration> getAllRegistrations() {
         return registrations;
