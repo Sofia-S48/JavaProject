@@ -62,7 +62,7 @@ public class RegistrationDAO {
                     int participantId= registrationResults.getInt("participant_id");
                     java.util.Date registrationDate = registrationResults.getDate("redistrationDate");
 
-                    Registration reg =new Registration(r.getRegistrationId(), r.getEventId(), r.getParticipantId(), r.getRegistrationDate());
+                    Registration reg =new Registration(registrationId, eventId, participantId, registrationDate);
                     allRegistrations.add(reg);
                 }
                 return allRegistrations;
