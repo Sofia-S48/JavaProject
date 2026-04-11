@@ -1,6 +1,8 @@
-import DAO.EventDAO;
-import DAO.ParticipantDAO;
+
 import Model.*; // i looked up that this will import everything in our model folder. makes things look neater.
+import controller.EventController;
+import controller.ParticipantController;
+
 import java.util.Date;
 import java.util.Scanner;
 
@@ -8,9 +10,9 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Event event = null;
-        //added Event and Participant DAO as a test
-        EventDAO eventDAO = new EventDAO();
-        ParticipantDAO participantDAO = new ParticipantDAO();
+        //added Event and Participant Controller as a test
+        EventController eventController = new EventController();
+        ParticipantController participantController = new ParticipantController();
 
         int choice;
 
@@ -81,7 +83,7 @@ public class Main {
                         }
 
                         if (event != null) {
-                            eventDAO.addEvent(event);
+                            eventController.addEvent(event);
                             System.out.println("Event created successfully!");
                         }
 
@@ -108,7 +110,7 @@ public class Main {
                         String contactInformation = scanner.nextLine();
 
                         Participant participant = new Participant(participantId, name, contactInformation);
-                        participantDAO.addParticipant(participant);
+                        participantController.addParticipant(participant);
                         System.out.println("Participant created successfully");
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -119,7 +121,7 @@ public class Main {
                     try {
                         System.out.println("All participants:");
 
-                        for (Participant p : participantDAO.getAllParticipants()) {
+                        for (Participant p : participantController.getAllParticipants()) {
                             System.out.println(p);
                         }
 

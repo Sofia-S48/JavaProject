@@ -38,4 +38,7 @@ public class ParticipantController {
             System.out.println(participant);
         }
     }
+
+    public void addParticipant(Participant participant) {
+    }
 }
