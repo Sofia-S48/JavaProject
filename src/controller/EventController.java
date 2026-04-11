@@ -1,39 +1,51 @@
 package controller;
-
+import DAO.EventDAO;
 import Model.Event;
 
 import java.util.ArrayList;
 public class EventController {
     private ArrayList<Event> events;
+    private EventDAO eventDAO;
 
     public EventController() {
         events = new ArrayList<>();
+        eventDAO = new EventDAO();
     }
 
     public void addEvent(Event event) {
         events.add(event);
+        try {
+            eventDAO.addEvent(event);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public Event searchEventById(int id) {
-        for (int i = 0; i < events.size(); i++) {
-            Event event = events.get(i);
-
-            if (event.getEventId() == id) {
-                return event;
-            }
+        try {
+            return eventDAO.getById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
-    // removeEvent
 
-    public ArrayList<Event> getAllEvents() {
+    public void removeEvent(int id) {
+        try {
+            eventDAO.removeEvent(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Event> getAllEvents() { //*Need to fix, needed help.
         return events;
     }
 
     public void displayEvents() {
-        for (int i = 0; i < events.size(); i++) {
-            Event event = events.get(i);
-            System.out.println(event);
+        ArrayList<Event> allEvents = getAllEvents();
+        for (int i = 0; i < allEvents.size(); i++) {
+            System.out.println(allEvents.get(i));
         }
     }
 }
