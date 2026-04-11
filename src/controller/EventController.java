@@ -1,52 +1,51 @@
 package controller;
-
+import DAO.EventDAO;
 import Model.Event;
 
 import java.util.ArrayList;
 public class EventController {
     private ArrayList<Event> events;
+    private EventDAO eventDAO;
 
     public EventController() {
         events = new ArrayList<>();
+        eventDAO = new EventDAO();
     }
 
     public void addEvent(Event event) {
         events.add(event);
+        try {
+            eventDAO.addEvent(event);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public Event searchEventById(int id) {
-        for (int i = 0; i < events.size(); i++) {
-            Event event = events.get(i);
-
-            if (event.getEventId() == id) {
-                return event;
-            }
+        try {
+            return eventDAO.getById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
 
-    public boolean removeEvent(int id)
-    {
-        for (int i = 0; i < events.size(); i++) {
-            Event event = events.get(i);
-
-            if (event.getEventId() == id) // this is used to check if the event ID matches the one to be deleted.
-            {
-                events.remove(i);
-                return true; //stop once event is removed.
-            }
+    public void removeEvent(int id) {
+        try {
+            eventDAO.removeEvent(id);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return false; // this is if the loop never finds a matching index.
     }
 
-    public ArrayList<Event> getAllEvents() {
+    public ArrayList<Event> getAllEvents() { //*Need to fix, needed help.
         return events;
     }
 
     public void displayEvents() {
-        for (int i = 0; i < events.size(); i++) {
-            Event event = events.get(i);
-            System.out.println(event);
+        ArrayList<Event> allEvents = getAllEvents();
+        for (int i = 0; i < allEvents.size(); i++) {
+            System.out.println(allEvents.get(i));
         }
     }
 }

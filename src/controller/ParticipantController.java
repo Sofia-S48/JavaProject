@@ -1,52 +1,55 @@
 package controller;
-
+import  DAO.ParticipantDAO;
 import Model.Participant;
 
 import java.util.ArrayList;
 
 public class ParticipantController {
     private ArrayList<Participant> participants;
+    private ParticipantDAO participantDAO;
 
     public ParticipantController() {
         participants = new ArrayList<>();
+        participantDAO = new ParticipantDAO();
     }
 
-    public void addParticipant(Participant participant) {
-        participants.add(participant);
-    }
-
-    public boolean removePartipant(int id) {
-        for (int i = 0; i <participants.size(); i++) //loop that goes through every participant that will look at the participant at position i.
-        {
-            Participant participant = participants.get(i); //uses get function we made to get the index.
-            if (participant.getParticipantId()==id) // this is used to check if the id matches the one to be deleted.
-            {
-                participants.remove(i);
-                return true; //stop once participant is removed.
-            }
+    public void addParticipants(Participant participant) {
+        try {
+            participantDAO.addParticipant(participant);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return false; // this is if no participant with that ID exists.
+
+    }
+    // removeParticipants**
+    public void removeParticipants (int id) {
+        try {
+            participantDAO.removeParticipant(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public Participant searchParticipantById(int id) {
-        for (int i = 0; i < participants.size(); i++) {
-            Participant participant = participants.get(i);
-
-            if (participant.getParticipantId() == id) {
-                return participant;
-            }
+        try {
+            return participantDAO.getById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
 
-    public ArrayList<Participant> getAllParticipants() {
+    public ArrayList<Participant> getAllParticipants() { //NOT DONE need help.
         return participants;
     }
 
     public void displayParticipants() {
-        for (int i = 0; i < participants.size(); i++) {
-            Participant participant = participants.get(i);
-            System.out.println(participant);
+        ArrayList<Participant> allParticipants = getAllParticipants();
+        for (int i = 0; i < allParticipants.size(); i++) {
+            System.out.println(allParticipants.get(i));
         }
+    }
+
+    public void addParticipant(Participant participant) {
     }
 }

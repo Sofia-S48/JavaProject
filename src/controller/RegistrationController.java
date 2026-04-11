@@ -1,45 +1,52 @@
 package controller;
 
-import Model.Participant;
 import Model.Registration;
+import DAO.RegistrationDAO;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RegistrationController {
     private ArrayList<Registration> registrations;
+    private RegistrationDAO registrationDAO;
 
+//constructor
     public RegistrationController() {
         registrations = new ArrayList<>();
+        registrationDAO = new RegistrationDAO();
     }
-
-    public void addRegistration(Registration registration) {
-        registrations.add(registration);
-    }
-
-    public Registration searchRegistration(int index) {
-        for (int i = 0; i < registrations.size(); i++) {
-            if (i == index) {
-                return registrations.get(i);
-            }
+// add
+    public void addRegistration(Registration r) throws SQLException {
+        if (registrationDAO.isParticipantRegistered(r.getParticipantId(), r.getEventId())) {
+            System.out.println("Participant already registered for this event!");
+            return;
         }
-        return null;
+        registrationDAO.addRegistration(r);
+        registrations.add(r);
     }
 
-    public boolean removeRegistration(int index) {
-        for (int i = 0; i <registrations.size(); i++) //loop that goes through every index in the registration list.
-        {
-            if (i== index) // this is used to check if the index matches the one to be deleted.
-            {
-                registrations.remove(i);
-                return true; //stop once registration is removed.
-            }
-        }
-        return false; // this is if the loop never finds a matching index.
-    }
+//    getAll
 
-    public ArrayList<Registration> getAllRegistrations() {
+    public List<Registration> getAllRegistration() throws SQLException{
+        registrations= (ArrayList<Registration>) registrationDAO.getAllRegistrations();
         return registrations;
+
     }
+
+//    getById
+
+    public Registration getRegistrationByEventId(int id) throws SQLException{
+        return registrationDAO.getByEventId(id);
+    }
+
+
+//     Remove
+    public void deleteRegistration(int id) throws SQLException{
+        registrationDAO.removeRegistration(id);
+        registrations.removeIf(r ->r.getRegistrationId() == id);
+    }
+
 
     public void displayRegistrations() {
         for (int i = 0; i < registrations.size(); i++) {

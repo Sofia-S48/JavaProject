@@ -41,7 +41,7 @@ public class RegistrationDAO {
         }
     }
 
-    public List<Registration> getAllRegistrations(Registration r)
+    public List<Registration> getAllRegistrations()
     {
         String query = "SELECT * FROM registration";
 
@@ -159,3 +159,4 @@ public class RegistrationDAO {
 
     }
 }
+
