@@ -4,18 +4,16 @@ import Model.Event;
 
 import java.util.ArrayList;
 public class EventController {
-    private ArrayList<Event> events;
+    //removed redundancy of using event list, and now fully uses the DAOS
     private EventDAO eventDAO;
 
     public EventController() {
-        events = new ArrayList<>();
+
         eventDAO = new EventDAO();
     }
 
     public void addEvent(Event event) {
-        events.add(event);
         try {
-            eventDAO.addEvent(event);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -38,8 +36,13 @@ public class EventController {
         }
     }
 
-    public ArrayList<Event> getAllEvents() { //*Need to fix, needed help.
-        return events;
+    public ArrayList<Event> getAllEvents() {
+        try {
+            return new ArrayList<>(eventDAO.getAllEvents());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
     }
 
     public void displayEvents() {
