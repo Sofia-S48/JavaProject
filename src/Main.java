@@ -1,13 +1,19 @@
-import Model.Event;
-import Model.Participant;
+
+import Model.*; // i looked up that this will import everything in our model folder. makes things look neater.
+import controller.EventController;
+import controller.ParticipantController;
+
+import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
-    private static int id;
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Event event = null;
+        //added Event and Participant Controller as a test
+        EventController eventController = new EventController();
+        ParticipantController participantController = new ParticipantController();
+
         int choice;
 
         do {
@@ -23,56 +29,104 @@ public class Main {
             switch (choice) {
 
                 case 1:
-                    System.out.println("What type of event would you like to create?");
-                    System.out.println("1. Professional");
-                    System.out.println("2. Social");
-                    System.out.println("3. Academic");
-                    int eventType = scanner.nextInt();
-                    scanner.nextLine();
+                    try {
+                        System.out.println("What type of event would you like to create?");
+                        System.out.println("1. Professional");
+                        System.out.println("2. Social");
+                        System.out.println("3. Academic");
+                        int eventType = scanner.nextInt();
+                        scanner.nextLine();
 
-                    System.out.print("Enter event name: ");
-                    String eventName = scanner.nextLine();
+                        System.out.print("Enter event ID: ");
+                        int eventId = scanner.nextInt();
+                        scanner.nextLine();
 
-                    switch (eventType) {
-                        case 1:
-                            event = new Event(eventName, "Professional");
-                            break;
-                        case 2:
-                            event = new Event(eventName, "Social");
-                            break;
-                        case 3:
-                            event = new Event(eventName, "Academic");
-                            break;
-                        default:
-                            System.out.println("Invalid choice");
-                            break;
+                        System.out.print("Enter event name: ");
+                        String eventName = scanner.nextLine();
+
+                        System.out.print("Enter max participants: ");
+                        int maxParticipants = scanner.nextInt();
+                        scanner.nextLine();
+
+                        Organizer organizer = new Organizer(1, "Default", "default@email.com");
+                        Date date = new Date();
+
+                        switch (eventType) {
+                            case 1:
+                                System.out.print("Enter subject: ");
+                                String proSubject = scanner.nextLine();
+                                System.out.print("Enter industry: ");
+                                String industry = scanner.nextLine();
+
+                                event = new Professional(eventId, eventName, date, maxParticipants, organizer, proSubject, industry);
+                                break;
+
+                            case 2:
+                                System.out.print("Enter theme: ");
+                                String theme = scanner.nextLine();
+
+                                event = new Social(eventId, eventName, date, maxParticipants, organizer, theme);
+                                break;
+
+                            case 3:
+                                System.out.print("Enter subject: ");
+                                String academicSubject = scanner.nextLine();
+                                System.out.print("Enter speaker: ");
+                                String speaker = scanner.nextLine();
+
+                                event = new Academic(eventId, eventName, date, maxParticipants, organizer, academicSubject, speaker);
+                                break;
+
+                            default:
+                                System.out.println("Invalid type.");
+                                break;
+                        }
+
+                        if (event != null) {
+                            eventController.addEvent(event);
+                            System.out.println("Event created successfully!");
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-
-                    System.out.println("Event created successfully!");
                     break;
 
                 case 2:
-                    if (event == null) {
-                        System.out.println("Please create an event first.");
-                        break;
+                    try {
+                        if (event == null) {
+                            System.out.println("Please create an event first.");
+                            break;
+                        }
+
+                        System.out.print("Enter participant name: ");
+                        String name = scanner.nextLine();
+
+                        System.out.print("Enter participant ID: ");
+                        int participantId = scanner.nextInt();
+                        scanner.nextLine();
+
+                        System.out.print("Enter contact information: ");
+                        String contactInformation = scanner.nextLine();
+
+                        Participant participant = new Participant(participantId, name, contactInformation);
+                        participantController.addParticipant(participant);
+                        System.out.println("Participant created successfully");
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-
-                    System.out.print("Enter participant name: ");
-                    String name = scanner.nextLine();
-
-                    System.out.print("Enter participant ID: ");
-                    int participantId = scanner.nextInt();
-                    scanner.nextLine();
-
-                    Participant participant = new Participant(name, participantId);
-                    event.registerParticipant(participant);
                     break;
 
                 case 3:
-                    if (event == null) {
-                        System.out.println("No event created yet.");
-                    } else {
-                        event.showParticipants();
+                    try {
+                        System.out.println("All participants:");
+
+                        for (Participant p : participantController.getAllParticipants()) {
+                            System.out.println(p);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                     break;
 

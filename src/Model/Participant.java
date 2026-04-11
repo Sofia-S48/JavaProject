@@ -2,22 +2,21 @@ package Model;
 
 import java.util.Date;
 
-public class Participant extends Event {
+public class Participant  { // changed class to not extend Event.
     private int participantId;
     private String participantName;
     private String contactInformation;
 
-    public Participant(int eventId, String name, Date date, int maxParticipants, Organizer organizer, int participantId, String participantName, String contactInformation)
+    public Participant(int participantId, String participantName, String contactInformation)
     {
-        super(eventId, name, date, maxParticipants, organizer);
         this.participantId = participantId;
-        this.name = name;
+        this.participantName = participantName;
         this.contactInformation = contactInformation;
     }
 
 
-    public Participant(String participantNameName, int participantId) {
-        super(name, participantId);
+    public Participant(String participantName, int participantId) {
+        super();
     }
 
 
