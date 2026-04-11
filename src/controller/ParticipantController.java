@@ -5,11 +5,10 @@ import Model.Participant;
 import java.util.ArrayList;
 
 public class ParticipantController {
-    private ArrayList<Participant> participants;
+    //removed redundancy of using participant list, and now fully uses the DAOS
     private ParticipantDAO participantDAO;
 
     public ParticipantController() {
-        participants = new ArrayList<>();
         participantDAO = new ParticipantDAO();
     }
 
@@ -39,8 +38,13 @@ public class ParticipantController {
         return null;
     }
 
-    public ArrayList<Participant> getAllParticipants() { //NOT DONE need help.
-        return participants;
+    public ArrayList<Participant> getAllParticipants() {
+        try {
+            return new ArrayList<>(participantDAO.getAllParticipants());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
     }
 
     public void displayParticipants() {
