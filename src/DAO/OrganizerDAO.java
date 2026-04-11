@@ -38,7 +38,7 @@ public class OrganizerDAO {
 
     }
 
-    public List<Organizer> getAllOrganizers(Organizer o) {
+    public List<Organizer> getAllOrganizers() {
         String query = "SELECT * FROM organizers";
 
         Connection myConnection = DbConnection.getConnection();
