@@ -57,7 +57,7 @@ public class OrganizerDAO {
                     String name= organizerResults.getString("name");
                     String email= organizerResults.getString("email");
 
-                    Organizer org =new Organizer(o.getOrganizerId(), o.getName(), o.getEmail());
+                    Organizer org =new Organizer(id, name, email);
                     allOrganizers.add(org);
                 }
                 return allOrganizers;
