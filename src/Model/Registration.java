@@ -17,6 +17,7 @@ public class Registration  {
     public int getRegistrationId(){return registrationId;}
     public int getEventId(){return eventId;}
     public int getParticipantId(){return participantId;}
+    public LocalDate getRegistrationDate(){return registrationDate;}
 
 
     public void displayRegistration()

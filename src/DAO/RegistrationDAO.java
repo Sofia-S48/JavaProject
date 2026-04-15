@@ -4,6 +4,7 @@ import DB.DbConnection;
 import Model.Registration;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class RegistrationDAO {
                 myQuery.setInt(1,r.getRegistrationId());
                 myQuery.setInt(2,r.getEventId());
                 myQuery.setInt(3,r.getParticipantId());
-                myQuery.setDate(4, (Date) r.getRegistrationDate());
+                myQuery.setDate(4, Date.valueOf((LocalDate) r.getRegistrationDate()));
 
                 myQuery.executeUpdate();
 

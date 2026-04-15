@@ -49,10 +49,5 @@ public class RegistrationController {
     }
 
 
-    public void displayRegistrations() {
-        for (int i = 0; i < registrations.size(); i++) {
-            Registration registration = registrations.get(i);
-            System.out.println(registration);
-        }
-    }
+
 }

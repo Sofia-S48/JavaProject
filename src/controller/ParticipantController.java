@@ -54,6 +54,4 @@ public class ParticipantController {
         }
     }
 
-    public void addParticipant(Participant participant) {
-    }
 }
