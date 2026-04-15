@@ -5,17 +5,19 @@ import java.sql.DriverManager;
 
 public class DbConnection {
 
-    private static final String DBName = "EventManagement";
-    private static final String ServerName= "localhost:3306";
+    private static final String DBName="EventManagement";
+    private static final String ServerName="localhost:3306";
+
 
     private static final String URL="jdbc:mysql://"+ServerName+"/"+DBName;
 
     private static final String UserName="root";
     private static final String Password="";
 
+
     public static Connection getConnection()
     {
-        try{
+        try {
             return DriverManager.getConnection(URL, UserName, Password);
         }
         catch (Exception e)
@@ -23,8 +25,8 @@ public class DbConnection {
 
             e.printStackTrace();
             System.out.println(e.toString());
-        }
-        return null;
-    }
 
+        }
+        return  null;
+    }
 }
