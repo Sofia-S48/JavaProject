@@ -12,5 +12,4 @@ public class Academic extends Event{
         this.speaker = speaker;
     }
 
-
 }
