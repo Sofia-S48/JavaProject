@@ -17,6 +17,7 @@ public class RegistrationController {
         registrationDAO = new RegistrationDAO();
     }
 // add
+
     public void addRegistration(Registration r) throws SQLException {
         if (registrationDAO.isParticipantRegistered(r.getParticipantId(), r.getEventId())) {
             System.out.println("Participant already registered for this event!");

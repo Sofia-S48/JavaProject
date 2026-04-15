@@ -1,7 +1,6 @@
 package DAO;
 
 import DB.DbConnection;
-import Model.Organizer;
 import Model.Registration;
 
 import java.sql.*;
@@ -62,7 +61,7 @@ public class RegistrationDAO {
                     int participantId= registrationResults.getInt("participant_id");
                     java.util.Date registrationDate = registrationResults.getDate("redistrationDate");
 
-                    Registration reg =new Registration(registrationId, eventId, participantId, registrationDate);
+                    Registration reg =new Registration(registrationId, eventId, participantId);
                     allRegistrations.add(reg);
                 }
                 return allRegistrations;
@@ -95,7 +94,7 @@ public class RegistrationDAO {
                     int participantId = registrationResults.getInt("participant_id");
                     java.util.Date registrationDate = registrationResults.getDate("ragistrationDate");
 
-                    Registration reg = new Registration(registrationId, evId, participantId,registrationDate);
+                    Registration reg = new Registration(registrationId, evId, participantId);
                     return reg;
 
                 }

@@ -1,23 +1,23 @@
 package Model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Registration  {
     private int registrationId;
     private int eventId;
     private int participantId;
-    private Date registrationDate;
+    private LocalDate registrationDate;
 
-    public Registration(int registrationId, int eventId, int participantId, Date registrationDate) {
+    public Registration(int registrationId, int eventId, int participantId) {
         this.registrationId = registrationId;
         this.eventId = eventId;
         this.participantId = participantId;
-        this.registrationDate = registrationDate;
+        this.registrationDate = LocalDate.now();
     }
     public int getRegistrationId(){return registrationId;}
     public int getEventId(){return eventId;}
     public int getParticipantId(){return participantId;}
-    public Date getRegistrationDate(){return registrationDate;}
+
 
     public void displayRegistration()
     {
