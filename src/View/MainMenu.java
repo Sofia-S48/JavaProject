@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MainMenu {
+public class MainMenu extends JFrame{
     private JPanel MainMenu;
     private JButton Events;
     private JButton Registration;
@@ -12,29 +12,17 @@ public class MainMenu {
     private JButton Organizer;
 
     public MainMenu() {
-        Events.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        setContentPane(MainMenu);
+        setTitle("Main Menu");
+        setSize(600, 500);
+        setLocation(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setVisible(true);
 
-            }
-        });
-        Registration.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        Events.addActionListener(e -> EventsForm);
+        Registration.addActionListener(e -> RegistrationForm);
+        Participants.addActionListener(e -> ParticipantsForm);
+        Organizer.addActionListener(e -> OrganizerForm);
 
-            }
-        });
-        Organizer.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        Participants.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
     }
 }
