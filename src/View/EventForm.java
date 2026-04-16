@@ -1,13 +1,14 @@
-package controller;
+package View;
 
 import Model.*;
+import controller.EventController;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class EventForm1 extends JFrame {
+public class EventForm extends JFrame {
     private JTabbedPane tabs;
     private JPanel addAcademicevent;
     private JTextField EventnameText;
@@ -66,7 +67,7 @@ public class EventForm1 extends JFrame {
     private EventController controller;
 
 
-    public EventForm1() {
+    public EventForm() {
         setContentPane(MainPanel);
         setTitle("Event Form");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

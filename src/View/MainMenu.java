@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import View.RegistrationForm;
+import View.EventForm;
+import View.ParticipantForm;
 
 public class MainMenu extends JFrame{
     private JPanel MainMenu;
@@ -22,13 +24,13 @@ public class MainMenu extends JFrame{
         setVisible(true);
 
         Events.addActionListener(e ->{
-            new EventsForm().setVisible(true);
+            new EventForm().setVisible(true);
         });
         Registration.addActionListener(e -> {
             new RegistrationForm().setVisible(true);
         });
         Participants.addActionListener(e -> {
-            new ParticipantsForm().setVisible(true);
+            new ParticipantForm().setVisible(true);
         });
         Organizer.addActionListener(e -> {
             new OrganizerForm().setVisible(true);

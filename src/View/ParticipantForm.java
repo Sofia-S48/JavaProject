@@ -13,7 +13,6 @@ import Model.Participant;
 public class ParticipantForm extends JFrame {
     private JTabbedPane participantForm ;
     private JPanel panel1;
-    private JLabel IDlabel;
     private JLabel Namelabel;
     private JLabel ContactLabel;
     private JTextField idTextField;
@@ -56,11 +55,10 @@ public class ParticipantForm extends JFrame {
     //add participant
     public void addParticipant(){
         try {
-            int participantID = Integer.parseInt(idTextField.getText());
             String participantName = nameTextField.getText(); // I dont have to parse string
             String contact = contactTextField.getText();
 
-            Participant participant = new Participant(participantID, participantName, contact);
+            Participant participant = new Participant(participantName, contact);
 
             controller.addParticipant(participant);
             JOptionPane.showMessageDialog(this, "Participant Added");
