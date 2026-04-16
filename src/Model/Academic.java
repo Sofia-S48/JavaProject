@@ -12,4 +12,12 @@ public class Academic extends Event{
         this.speaker = speaker;
     }
 
+    public Academic(String name, Date date, int maxParticipants, Organizer organizer, String subject, String speaker) {
+
+        super(name, date, maxParticipants, organizer);
+        this.subject = subject;
+        this.speaker = speaker;
+    }
+
+
 }

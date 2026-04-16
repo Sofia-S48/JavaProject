@@ -14,15 +14,10 @@ public class Participant  { // changed class to not extend Event.
         this.contactInformation = contactInformation;
     }
 
-    public Participant(String participantName, int participantId) {
-        super();
+    public Participant(String participantName, String contactInformation) {
+        this.participantName = participantName;
+        this.contactInformation = contactInformation;
     }
-
-
-    public Participant(String participantName, int participantId) {
-        super();
-    }
-
 
     public int getParticipantId() {
         return participantId;

@@ -1,5 +1,6 @@
 package Model;
 
+import javax.swing.*;
 import java.util.Date;
 public class Social extends Event {
     private String theme;
@@ -9,6 +10,15 @@ public class Social extends Event {
     public Social(int eventId, String name, Date date, int maxParticipants, Organizer organizer, String theme) {
         super(eventId, name, date, maxParticipants, organizer);
         this.theme= theme;
+    }
+
+    public Social(String name, JTextField date, int maxParticipants, Organizer organizer, String theme) {
+        super();
+    }
+
+    public Social(String name, Date date, int maxParticipants, Organizer organizer, String theme) {
+        super(name, date, maxParticipants, organizer);
+        this.theme = theme;
     }
 
     public String getTheme() {

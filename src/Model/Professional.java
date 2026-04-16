@@ -12,6 +12,12 @@ public class Professional extends Event {
         this.industry = industry;
     }
 
+    public Professional(String name, Date date, int maxParticipants, Organizer organizer, String subject, String industry) {
+        super(name, date, maxParticipants, organizer);
+        this.subject = subject;
+        this.industry = industry;
+    }
+
     public String getSubject() {
         return subject;
     }

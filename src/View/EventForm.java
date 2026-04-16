@@ -1,13 +1,14 @@
-package controller;
+package View;
 
 import Model.*;
+import controller.EventController;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class EventForm1 extends JFrame {
+public class EventForm extends JFrame {
     private JTabbedPane tabs;
     private JPanel addAcademicevent;
     private JTextField EventnameText;
@@ -66,7 +67,7 @@ public class EventForm1 extends JFrame {
     private EventController controller;
 
 
-    public EventForm1() {
+    public EventForm() {
         setContentPane(MainPanel);
         setTitle("Event Form");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -97,7 +98,7 @@ public class EventForm1 extends JFrame {
             Organizer organizer = new Organizer (organizerId,"","");
             String subject = subjectTextfield.getText();
             String speaker = speakerTextfield.getText();
-            Academic academic = new Academic (name,date,maxParticipants,organizer,subject, speaker);
+            Academic academic = new Academic (name,dates,maxParticipants,organizer,subject, speaker);
 
             controller.addEvent(academic);
             JOptionPane.showMessageDialog(this, "Event Added!");
@@ -139,7 +140,10 @@ public class EventForm1 extends JFrame {
             Organizer organizer = new Organizer(organizerId, "", "");
             String subject = ProfsubjectTextField.getText();
             String industry = industryTextFields.getText();
-            Professional professional = new Professional(name, date, maxParticipants, organizer, subject, industry);
+            Professional professional = new Professional(name, dates, maxParticipants, organizer, subject, industry);
+
+            controller.addEvent(professional);
+            JOptionPane.showMessageDialog(this, "Event Added!");
         }   catch (Exception e)
             {
                 e.printStackTrace();
