@@ -1,13 +1,14 @@
 package View;
 import Model.Organizer;
+import DAO.OrganizerDAO;
 import controller.OrganizerController;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
+
 
 public class OrganizerForm extends JFrame {
 
@@ -16,40 +17,64 @@ public class OrganizerForm extends JFrame {
     private JLabel organizationLabel;
     private JLabel nameLabel;
     private JTextField mobileTextField;
-    private JTextField emailLabel;
     private JTextField nameTextField;
     private JTextField emailTextField;
-    private JTextField textField1;
+    private JTextField textField1; // remove ID
     private JButton deleteButton;
     private JTextField searchID;
     private JButton searchButton;
     private JTable searchOrganizerTable;
     private JButton displayAllButton;
     private JTable organizerTable;
-    private JButton addOrganizerButton;
-    private JButton clearButton;
+    private JLabel emailLabel;
 
     private OrganizerController controller;
 
+
     public OrganizerForm() {
-        super("Organizer Form");
+        setContentPane(newOrganizerRootPanel);
+        setTitle("Organizer Management");
+        setSize(600, 500);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setVisible(true);
+
         controller = new OrganizerController();
-
-
-        clearButton.addActionListener(new ActionListener() { // this is an anonymous inner class (there's no name)
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //to do
-            }
-        });
-        mobileTextField.addActionListener(new ActionListener() { // this is an anonymous inner class (there's no name)
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
+        addButton.addActionListener(e -> addOrganizer());
+        deleteButton.addActionListener(e -> removeOrganizer());
+        searchButton.addActionListener(e -> searchOrganizerById());
+        displayAllButton.addActionListener(e -> displayAll());
     }
 
+    public void addOrganizer() {
+        try {
+            String name = nameTextField.getText();
+            String email = emailTextField.getText();
+
+            Organizer o = new Organizer(name, email);
+            controller.addOrganizer(o);
+
+            JOptionPane.showMessageDialog(this, "Organizer Added");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error adding Organizer");
+        }
+    }
+    public void removeOrganizer(){
+        try {
+            int id = Integer.parseInt(textField1.getText());
+
+            controller.deleteOrganizer(id);
+
+            JOptionPane.showMessageDialog(this, "Deleted successfully ");
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error deleting");
+        }
+
+    }
     public void searchOrganizerById() {
         try {
             int id = Integer.parseInt(searchID.getText());
@@ -68,8 +93,9 @@ public class OrganizerForm extends JFrame {
                     });
                 }
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error searching"); // this prints an error message to the user.
         }
     }
     public void displayAll() {
@@ -77,12 +103,13 @@ public class OrganizerForm extends JFrame {
             List<Organizer> list = controller.getAllOrganizers();
             DefaultTableModel model =(DefaultTableModel) organizerTable.getModel();
             model.setRowCount(0);
-            for (Organizer O :list){
-                O.getOrganizerId();
-                O.getName();
-                O.getEmail();
+            for (Organizer O :list) {
+                model.addRow(new Object[]{
+                        O.getOrganizerId(),
+                        O.getName(),
+                        O.getEmail()
+                });
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error displaying");
