@@ -39,7 +39,7 @@ public class ParticipantForm extends JFrame {
         setContentPane(participantForm);
         setTitle("Participant Form");
         setSize(600, 500);
-        setLocation(null);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
         controller = new ParticipantController();

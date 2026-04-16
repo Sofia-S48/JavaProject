@@ -1,6 +1,7 @@
 package Model;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 public class Registration  {
     private int registrationId;
@@ -27,6 +28,8 @@ public class Registration  {
         this.registrationDate = registrationDate;
     }
 
+    public Registration(int registrationId, int eventId, int participantId, Date registrationDate) {
+    }
 
 
     public int getRegistrationId(){return registrationId;}

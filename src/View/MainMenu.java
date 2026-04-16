@@ -1,5 +1,7 @@
 package View;
 
+import Model.Registration;
+
 import javax.swing.*;
 
 public class MainMenu extends JFrame{
@@ -15,28 +17,30 @@ public class MainMenu extends JFrame{
         setContentPane(panel1);
         setTitle("Main Menu");
         pack();
-        setLocation(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setVisible(true);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        EventButton.addActionListener(e ->{
+
+
+
+        EventButton.addActionListener(e -> {
+            System.out.println("Event button clicked");
             new EventForm().setVisible(true);
         });
+
         RegistrationButton.addActionListener(e -> {
             new RegistrationForm().setVisible(true);
         });
+
         ParticipantButton.addActionListener(e -> {
             new ParticipantForm().setVisible(true);
         });
+
         OrganizerButton.addActionListener(e -> {
             new OrganizerForm().setVisible(true);
         });
 
+        setVisible(true);
     }
 
-    public static void main(String[]args){
-        java.awt.EventQueue.invokeLater(() ->{
-            new MainMenu().setVisible(true);
-        });
-    }
 }

@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RegistrationController {
-    private ArrayList<Registration> registrations;
-    private RegistrationDAO registrationDAO;
+    private static ArrayList<Registration> registrations;
+    private static RegistrationDAO registrationDAO;
 
 //constructor
     public RegistrationController() {
@@ -18,13 +18,13 @@ public class RegistrationController {
         registrationDAO = new RegistrationDAO();
     }
 // add
-    public static void addRegistration(Registration r) throws SQLException {
+    public static Registration  addRegistration(Registration r) throws SQLException {
         if (registrationDAO.isParticipantRegistered(r.getParticipantId(), r.getEventId())) {
             System.out.println("Participant already registered for this event!");
-            return;
         }
         registrationDAO.addRegistration(r);
         registrations.add(r);
+        return r;
     }
 
 //    getAll
