@@ -1,5 +1,6 @@
 package controller;
 
+import Model.Event;
 import Model.Registration;
 import DAO.RegistrationDAO;
 
@@ -8,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RegistrationController {
-    private ArrayList<Registration> registrations;
-    private RegistrationDAO registrationDAO;
+    private static ArrayList<Registration> registrations;
+    private static RegistrationDAO registrationDAO;
 
 //constructor
     public RegistrationController() {
@@ -18,7 +19,8 @@ public class RegistrationController {
     }
 // add
 
-    public void addRegistration(Registration r) throws SQLException {
+//    add eventFullException
+    public static void addRegistration(Registration r) throws SQLException {
         if (registrationDAO.isParticipantRegistered(r.getParticipantId(), r.getEventId())) {
             System.out.println("Participant already registered for this event!");
             return;
@@ -29,7 +31,7 @@ public class RegistrationController {
 
 //    getAll
 
-    public List<Registration> getAllRegistration() throws SQLException{
+    public ArrayList<Registration> getAllRegistration() throws SQLException{
         registrations= (ArrayList<Registration>) registrationDAO.getAllRegistrations();
         return registrations;
 
@@ -48,11 +50,13 @@ public class RegistrationController {
         registrations.removeIf(r ->r.getRegistrationId() == id);
     }
 
-
-    public void displayRegistrations() {
-        for (int i = 0; i < registrations.size(); i++) {
-            Registration registration = registrations.get(i);
-            System.out.println(registration);
+    public void displayRegistrations() throws SQLException {
+        ArrayList<Registration> allRegistrations = getAllRegistration();
+        for (int i = 0; i < allRegistrations.size(); i++) {
+            System.out.println(allRegistrations.get(i));
         }
     }
+
+
+
 }
