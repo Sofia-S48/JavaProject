@@ -16,7 +16,7 @@ public class MainMenu extends JFrame{
     public MainMenu() {
         setContentPane(MainMenu);
         setTitle("Main Menu");
-        setSize(600, 500);
+        pack();
         setLocation(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
@@ -34,5 +34,11 @@ public class MainMenu extends JFrame{
             new OrganizerForm().setVisible(true);
         });
 
+    }
+
+    public static void main(String[]args){
+        java.awt.EventQueue.invokeLater(() ->{
+            new MainMenu().setVisible(true);
+        });
     }
 }

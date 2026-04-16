@@ -47,7 +47,6 @@ public class RegistrationController {
 //     Remove
     public void deleteRegistration(int id) throws SQLException{
         registrationDAO.removeRegistration(id);
-        registrations.removeIf(r ->r.getRegistrationId() == id);
     }
 
     public void displayRegistrations() throws SQLException {

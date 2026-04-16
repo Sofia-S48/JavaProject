@@ -26,8 +26,6 @@ public class Event {
         this.organizer = organizer;
     }
 
-    public Event(String eventName, String social) {
-    }
 
     public int getEventId() {
         return eventId;

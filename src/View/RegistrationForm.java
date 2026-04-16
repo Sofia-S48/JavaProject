@@ -40,7 +40,7 @@ public class RegistrationForm extends JFrame {
         setContentPane(mainPanel);
         setTitle("Registration Management");
         setSize(600, 500);
-        setLocation(null);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
         controller = new RegistrationController();
