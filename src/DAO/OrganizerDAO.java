@@ -41,7 +41,7 @@ public class OrganizerDAO {
     return null;
     }
 
-    public ArrayList<Organizer> getAllOrganizers() {
+    public List<Organizer> getAllOrganizers() {
         String query = "SELECT * FROM organizers";
         ArrayList<Organizer> allOrganizers = new ArrayList<>();
 

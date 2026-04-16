@@ -19,13 +19,6 @@ public class Event {
         this.organizer = organizer;
     }
 
-    public Event(String name, Date date, int maxParticipants, Organizer organizer) {
-        this.name = name;
-        this.date = date;
-        this.maxParticipants = maxParticipants;
-        this.organizer = organizer;
-    }
-
     public Event(String eventName, String social) {
     }
 
