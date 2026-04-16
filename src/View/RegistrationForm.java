@@ -16,7 +16,6 @@ public class RegistrationForm extends JFrame {
     private JPanel Remove;
     private JPanel SeatchById;
     private JPanel DisplayAll;
-    private JLabel regIdLabel;
     private JLabel EventIdLabel;
     private JLabel ParticipantIdLabel;
     private JTextField RegistrationtextField;
@@ -33,7 +32,7 @@ public class RegistrationForm extends JFrame {
     private JButton displayAllRegistrationsButton;
     private JTable DisplayAllTable;
 
-    private RegistrationController controller;
+    private  RegistrationController controller;
 
 
     public RegistrationForm()
@@ -46,6 +45,7 @@ public class RegistrationForm extends JFrame {
         setVisible(true);
         controller = new RegistrationController();
 
+
         AddBtn.addActionListener(e -> addRegistration());
         removeButton.addActionListener(e ->removeRegistration());
         searchButton.addActionListener(e -> searchByEventId());
@@ -54,13 +54,12 @@ public class RegistrationForm extends JFrame {
 
     private void addRegistration(){
         try{
-            int regId = Integer.parseInt(RegistrationtextField.getText());
             int eventId = Integer.parseInt(EventTextField.getText());
             int participantId = Integer.parseInt(ParticipantTextField.getText());
 
-            Registration r = new Registration(regId, eventId, participantId);
+            Registration r = new Registration(eventId, participantId);
 
-            controller.addRegistration(r);
+            RegistrationController.addRegistration(r);
             JOptionPane.showMessageDialog(this, "Registration Added");
 
         } catch (Exception e) {

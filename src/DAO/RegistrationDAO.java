@@ -17,17 +17,16 @@ public class RegistrationDAO {
 
     public void addRegistration(Registration r) throws SQLException {
         try {
-            String query =" insert into Registration (registration_id, event_id, participant_id, registrationDate)  Values (?,?,?,?)";
+            String query =" insert into registrations ( event_id, participant_id, registrationDate)  Values (?,?,?)";
 
             Connection myConnection = DbConnection.getConnection();
             if(myConnection!=null)
             {
 
                 PreparedStatement myQuery = myConnection.prepareStatement(query);
-                myQuery.setInt(1,r.getRegistrationId());
-                myQuery.setInt(2,r.getEventId());
-                myQuery.setInt(3,r.getParticipantId());
-                myQuery.setDate(4, Date.valueOf((LocalDate) r.getRegistrationDate()));
+                myQuery.setInt(1,r.getEventId());
+                myQuery.setInt(2,r.getParticipantId());
+                myQuery.setDate(3, Date.valueOf((LocalDate) r.getRegistrationDate()));
 
                 myQuery.executeUpdate();
 
@@ -43,7 +42,7 @@ public class RegistrationDAO {
 
     public List<Registration> getAllRegistrations()
     {
-        String query = "SELECT * FROM registration";
+        String query = "SELECT * FROM registrations";
 
         Connection myConnection = DbConnection.getConnection();
 
@@ -78,7 +77,7 @@ public class RegistrationDAO {
 
     public Registration getByEventId(int eventId) throws SQLException {
         try {
-            String query = "SELECT * FROM Registration WHERE event_id = ?";
+            String query = "SELECT * FROM registrations WHERE event_id = ?";
 
             Connection myConnection = DbConnection.getConnection();
 
@@ -111,7 +110,7 @@ public class RegistrationDAO {
 
     public void removeRegistration(int registrationId) throws SQLException{
         try{
-            String query = "DELETE FROM registration WHERE registration_id = ?";
+            String query = "DELETE FROM registrations WHERE registration_id = ?";
 
             Connection myConnection = DbConnection.getConnection();
 
@@ -136,7 +135,7 @@ public class RegistrationDAO {
 
     public boolean isParticipantRegistered(int eventId, int participantId) throws SQLException {
         try {
-            String query = "SELECT * FROM registration WHERE event_id= ? AND participant_id = ?";
+            String query = "SELECT * FROM registrations WHERE event_id= ? AND participant_id = ?";
             Connection myConnection = DbConnection.getConnection();
 
             if (myConnection != null) {
