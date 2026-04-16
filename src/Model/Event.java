@@ -4,7 +4,7 @@ import java.util.Date;
 
 
 public class Event {
-    protected int eventId;
+    protected Integer eventId; // AP: Consider using Integer so this can be nullable
     protected String name;
     protected Date date;
     protected int maxParticipants;
@@ -19,6 +19,15 @@ public class Event {
         this.organizer = organizer;
     }
 
+    public Event(String name, Date date, int maxParticipants, Organizer organizer) {
+        // AP: When creating a new organizer, you do not have any ID
+        // The ID is only created upon insertion to the DB. So you need a way to create a NEW Organizer object without any ID
+        this.eventId = null;
+        this.name = name;
+        this.date = date;
+        this.maxParticipants = maxParticipants;
+        this.organizer = organizer;
+    }
 
 
     public int getEventId() {

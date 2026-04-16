@@ -1,6 +1,7 @@
 package View;
 
 import Model.Participant;
+import java.util.Scanner;
 
 import java.util.Scanner;
 
@@ -10,7 +11,7 @@ public class ConsoleApp {
         System.out.println("Welcome to the Events Management Program ");
 
         Scanner scanner = new Scanner(System.in);
-        int choice;
+        int choice = 0;
 
         do {
             //Displaying the menu
@@ -19,7 +20,13 @@ public class ConsoleApp {
             System.out.println("3. Exit ");
             System.out.println("Choose an option");
 
-            choice = scanner.nextInt();
+            try {
+                choice = Integer.parseInt(scanner.nextLine());
+            } catch (Exception e) {
+                System.out.print("Invalid input. Please enter a number");
+                continue; //this is just going to the next iteration.
+
+            }
 
             switch (choice) {
                 case 1:

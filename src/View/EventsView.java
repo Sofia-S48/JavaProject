@@ -6,7 +6,7 @@ public class EventsView {
     public static void run(){
 
         Scanner scanner = new Scanner(System.in);
-        int choice;
+        int choice = 0;
 
         do {
             System.out.println("Menu: ");
@@ -17,7 +17,7 @@ public class EventsView {
 
             System.out.println("Choose an option");
 
-            choice = scanner.nextInt();
+            Integer.parseInt(scanner.nextLine());
 
             switch (choice) {
                 case 1:
@@ -31,8 +31,9 @@ public class EventsView {
                     break;
 
                 case 4:
-                    System.out.println("Exiting");
+                    System.out.println("Exiting to main menu");
                     break;
+                    // AP: When exiting does this go back to ConsoleApp menu or exit the program?
                 default:
                     System.out.println("The choice is invalid.");
             }
@@ -40,6 +41,7 @@ public class EventsView {
     }
 
     //Methods
+    // AP: Does not launch the forms or execute any functions
     private static void listEvents() {
         System.out.println("Listing all Events: ");
     }
