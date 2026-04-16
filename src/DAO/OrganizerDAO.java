@@ -8,38 +8,42 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-
-import static jdk.internal.org.jline.utils.Colors.s;
 
 public class OrganizerDAO {
     //    add, getall, getbyid, update
 
-    public void addOrganizer(Organizer o) throws SQLException {
-        try {
-            String query =" INSERT INTO Organizer (organizer_id, name, email)  VALUES (?,?,?)";
+    public Organizer addOrganizer(Organizer o) throws SQLException {
+            String query =" INSERT INTO organizers ( name, email)  VALUES (?,?)";
 
             Connection myConnection = DbConnection.getConnection();
-            if(myConnection!=null)
-            {
-                PreparedStatement myQuery = myConnection.prepareStatement(query);
-                myQuery.setInt(1,o.getOrganizerId());
-                myQuery.setString(2,o.getName());
-                myQuery.setString(3,o.getEmail());
-                myQuery.executeUpdate();
-                System.out.println("Organizer added successfully");
+            if(myConnection!=null) {
+                try {
 
+                    PreparedStatement myQuery = myConnection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+                    myQuery.setString(1, o.getName());
+                    myQuery.setString(2, o.getEmail());
+                    myQuery.executeUpdate();
+
+                    ResultSet rs = myQuery.getGeneratedKeys();
+
+                    if (rs.next()) {
+                        int generatedId = rs.getInt(1);
+                        o.setOrganizerId(generatedId);
+                    }
+
+                    return o;
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
-
-        } catch (Exception e )
-        {
-            e.printStackTrace();
-        }
-
+    return null;
     }
 
     public List<Organizer> getAllOrganizers() {
         String query = "SELECT * FROM organizers";
+        ArrayList<Organizer> allOrganizers = new ArrayList<>();
 
         Connection myConnection = DbConnection.getConnection();
 
@@ -47,9 +51,7 @@ public class OrganizerDAO {
         {
             try{
                 PreparedStatement statement = myConnection.prepareStatement(query);
-                ResultSet organizerResults= statement.executeQuery(query);
-
-                List<Organizer> allOrganizers = new ArrayList<>();
+                ResultSet organizerResults= statement.executeQuery();
 
                 while(organizerResults.next())
                 {
@@ -67,14 +69,14 @@ public class OrganizerDAO {
                 e.printStackTrace();
             }
         }
-        return null;
+        return allOrganizers;
     }
 
 
 
     public Organizer getOrganizerById(int organizerId) throws SQLException {
         try {
-            String query = "SELECT * FROM Organizer WHERE organizer_id = ?";
+            String query = "SELECT * FROM organizers WHERE organizer_id = ?";
             Connection myConnection = DbConnection.getConnection();
 
             if (myConnection != null) {
@@ -104,9 +106,8 @@ public class OrganizerDAO {
 
 
 
-    public void updateOrganizer(Organizer o) throws SQLException {
-        try{
-            String query = "UPDATE orgnaizers SET name = ?, email= ? WHERE organizer_id = ?";
+    public boolean updateOrganizer(Organizer o) throws SQLException {
+            String query = "UPDATE organizers SET name = ?, email= ? WHERE organizer_id = ?";
 
             Connection myConnection = DbConnection.getConnection();
 
@@ -120,44 +121,34 @@ public class OrganizerDAO {
 
                 int rowsUpdated = myQuery.executeUpdate();
 
-                if(rowsUpdated > 0)
-                {
-                    System.out.println("Organizer updated");
-                }else{
-                    System.out.println("Organizer couldn't be found");
-                }
+                return rowsUpdated > 0;
+
             }
-        }catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+            return false;
+
 
     }
 
 
-    public void deleteOrganizer(int organizerId) throws SQLException{
-        try{
-            String query = "DELETE FROM organizers WHERE organizer_id = ?";
+    public boolean deleteOrganizer(int organizerId) throws SQLException{
+            String query = "DELETE FROM organizer WHERE organizer_id = ?";
 
             Connection myConnection = DbConnection.getConnection();
 
             if(myConnection != null){
+                try{
                 PreparedStatement myQuery = myConnection.prepareStatement(query);
                 myQuery.setInt(1, organizerId);
 
                 int rowsDelete = myQuery.executeUpdate();
 
-                if(rowsDelete >0)
-                {
-                    System.out.println("Organizer deleted");
-                }else {
-                    System.out.println("Organizer not found.");
+                return rowsDelete >0;
+            }catch (Exception e){
+                    e.printStackTrace();
                 }
-            }
-        } catch (Exception e)
-        {
-            e.printStackTrace();
+
         }
+        return false;
     }
 
 }

@@ -1,5 +1,6 @@
 package controller;
 
+import Model.Event;
 import Model.Registration;
 import DAO.RegistrationDAO;
 
@@ -54,4 +55,7 @@ public class RegistrationController {
             System.out.println(registration);
         }
     }
+
+
+
 }

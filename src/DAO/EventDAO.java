@@ -4,6 +4,9 @@ import Model.Academic;
 import Model.Event;
 import DB.DbConnection;
 import Model.Organizer;
+import Model.Professional;
+import Model.Social;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,62 +21,87 @@ public class EventDAO {
     //    // CRUD of Event
 //
 //        // 1- add Event
-    public void addEvent(Event e) throws SQLException {
-        try {
-            String query = " INSERT INTO Events (name, date, max_participants, organizer_id)  VALUES (?, ?, ?, ?)"; //mixed up organizer constructor with event.
+    public Event addEvent(Event e) throws SQLException {
+
+            String query = " INSERT INTO events (name, date, max_participants, organizer_id, event_type, subject, industry, theme, speaker)  VALUES (?, ?, ?, ?,?,?,?,?,?)";
 
             Connection myConnection = DbConnection.getConnection();
             if (myConnection != null) {
-                PreparedStatement myQuery = myConnection.prepareStatement(query);
+                try{
+                PreparedStatement myQuery = myConnection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+
                 myQuery.setString(1, e.getName());
                 myQuery.setDate(2, new java.sql.Date(e.getDate().getTime()));
                 myQuery.setInt(3, e.getMaxParticipants());
                 myQuery.setInt(4, e.getOrganizer().getOrganizerId());
 
-                int rowsInserted = myQuery.executeUpdate();
+                if (e instanceof Professional) {
+                    myQuery.setString(5, "Proffessional");
 
-                if (rowsInserted > 0) {
-                    System.out.println("Event added successfully.");
-                } else {
-                    System.out.println("Event was not added.");
+                    myQuery.setString(6, ((Professional) e).getSubject());
+                    myQuery.setString(7, ((Professional) e).getIndustry());
+                    myQuery.setString(8, null);
+                    myQuery.setString(9, null);
+                } else if (e instanceof Social) {
+                    myQuery.setString(5, "Social");
+
+                    myQuery.setString(6, null);
+                    myQuery.setString(7, null);
+                    myQuery.setString(8, ((Social) e).getTheme());
+                    myQuery.setString(9, null);
+
+                } else if (e instanceof Academic) {
+                    myQuery.setString(5, "Academic");
+
+                    myQuery.setString(6, ((Academic) e).getSubject());
+                    myQuery.setString(7, null);
+                    myQuery.setString(8, null);
+                    myQuery.setString(9, ((Academic) e).getSpeaker());
                 }
+
+                myQuery.executeUpdate();
+
+                ResultSet rs = myQuery.getGeneratedKeys();
+                if (rs.next()) {
+                    e.setEventId(rs.getInt(1));
+                }
+                return e;
+
+            } catch(Exception e1){
+                e1.printStackTrace();
             }
-        } catch (Exception e1) {
-            e1.printStackTrace();
         }
+            return null;
     }
 
-    public void removeEvent(int eventId) throws SQLException {
-        try {
-            String query = "DELETE FROM Events WHERE event_id = ?";
+    public boolean removeEvent(int eventId) throws SQLException {
+
+            String query = "DELETE FROM events WHERE event_id = ?";
 
             Connection myConnection = DbConnection.getConnection();
 
             if (myConnection != null) {
+                try {
                 PreparedStatement myQuery = myConnection.prepareStatement(query);
                 myQuery.setInt(1, eventId);
 
-                int rowsDelete = myQuery.executeUpdate();
+               return myQuery.executeUpdate() >0;
 
-                if (rowsDelete > 0) {
-                    System.out.println("Event deleted");
-                } else {
-                    System.out.println("Event not found.");
+                } catch (Exception e1) {
+                    e1.printStackTrace();
                 }
             }
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
-
+       return false;
     }
 
-    public void updateEvent(Event e) throws SQLException {
-        try {
-            String query = "UPDATE Events SET name = ?, date = ?, max_participants = ?, organizer_id = ? WHERE event_id = ?";
+    public boolean updateEvent(Event e) throws SQLException {
+
+            String query = "UPDATE events SET name = ?, date = ?, max_participants = ?, organizer_id = ? WHERE event_id = ?";
 
             Connection myConnection = DbConnection.getConnection();
 
             if (myConnection != null) {
+                try{
                 PreparedStatement statement = myConnection.prepareStatement(query);
 
                 statement.setString(1, e.getName());
@@ -82,21 +110,17 @@ public class EventDAO {
                 statement.setInt(4, e.getOrganizer().getOrganizerId());
                 statement.setInt(5, e.getEventId());
 
-                int rowsUpdated = statement.executeUpdate();
-
-                if (rowsUpdated > 0) {
-                    System.out.println("Event updated successfully.");
-                } else {
-                    System.out.println("Event not found.");
+                return statement.executeUpdate() > 0;
+                } catch (Exception e1) {
+                    e1.printStackTrace();
                 }
             }
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
+        return false;
     }
 
     public List<Event> getAllEvents() throws SQLException {
-        String query = "SELECT * FROM Events";
+        String query = "SELECT * FROM events";
+        List<Event> allEvents = new ArrayList<>();
 
         Connection myConnection = DbConnection.getConnection();
 
@@ -105,61 +129,115 @@ public class EventDAO {
                 PreparedStatement statement = myConnection.prepareStatement(query);
                 ResultSet eventResults = statement.executeQuery();
 
-                List<Event> allEvents = new ArrayList<>();
+
 
                 while (eventResults.next()) {
                     int eventId = eventResults.getInt("event_id");
                     String name = eventResults.getString("name");
                     java.util.Date date = eventResults.getDate("date");
                     int maxParticipants = eventResults.getInt("max_participants");
-                    int organizerId = eventResults.getInt("organizer_id");
 
-                    Organizer organizer = new Organizer(organizerId, "", "");
+                    Organizer organizer = new Organizer(eventResults.getInt("organizer_id"), "", "");
 
-                    Event ev = new Academic(eventId, name, date, maxParticipants, organizer, "", ""); //*Academic is acting as a placeholder for now because event is abstract.
-                    allEvents.add(ev);
+                    String type = eventResults.getString("event_type");
+
+                    Event event = null;
+                    switch (type){
+                        case "Professional":
+                            event = new Professional(
+                                    eventId, name, date, maxParticipants, organizer,
+                                    eventResults.getString("subject"),
+                                    eventResults.getString("industry")
+                            );
+                            break;
+
+                        case "Social":
+                            event = new Social(
+                                    eventId, name, date, maxParticipants, organizer,
+                                    eventResults.getString("theme")
+                            );
+                            break;
+
+                        case "Academic":
+                            event = new Academic(
+                                    eventId, name, date, maxParticipants, organizer,
+                                    eventResults.getString("subject"),
+                                    eventResults.getString("speaker")
+                            );
+                            break;
+                    }
+                    if (event != null){
+                        allEvents.add(event);
+                    }
                 }
-                return allEvents;
-            } catch (Exception e1) {
-                e1.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
-        return null;
+        return allEvents;
     }
 
     public Event getById(int eventId) throws SQLException {
-        try {
-            String query = "SELECT * FROM Events WHERE event_id = ?";
+
+            String query = "SELECT * FROM events WHERE event_id = ?";
 
             Connection myConnection = DbConnection.getConnection();
 
             if (myConnection != null) {
-                PreparedStatement statement = myConnection.prepareStatement(query);
-                statement.setInt(1, eventId);
+                try {
+                    PreparedStatement statement = myConnection.prepareStatement(query);
+                    statement.setInt(1, eventId);
 
-                ResultSet eventResults = statement.executeQuery(); //we have a prepared statement and set the parameter.
+                    ResultSet eventResults = statement.executeQuery(); //we have a prepared statement and set the parameter.
 
 
-                if (eventResults.next()) {
-                    int evId = eventResults.getInt("event_id");
-                    String name = eventResults.getString("name");
-                    java.util.Date date = eventResults.getDate("date");
-                    int maxParticipants = eventResults.getInt("max_participants");
-                    int organizerId = eventResults.getInt("organizer_id");
+                    if (eventResults.next()) {
 
-                    Organizer organizer = new Organizer(organizerId, "", "");
+                        String type = eventResults.getString("event_type");
+                        Organizer org = new Organizer(eventResults.getInt("organizer_id"), "", "");
 
-                    Event ev = new Academic(evId, name, date, maxParticipants, organizer, "", ""); // acts as a placeholder for now.
-                    return ev;
+                        if (type.equals("Professional")) {
+                            return new Professional(
+                                    eventId,
+                                    eventResults.getString("name"),
+                                    eventResults.getDate("date"),
+                                    eventResults.getInt("max_participants"),
+                                    org,
+                                    eventResults.getString("subject"),
+                                    eventResults.getString("industry")
+                            );
+                        }
+                        if (type.equals("Social")) {
+                            return new Social(
+                                    eventId,
+                                    eventResults.getString("name"),
+                                    eventResults.getDate("date"),
+                                    eventResults.getInt("max_participants"),
+                                    org,
+                                    eventResults.getString("theme")
+                            );
+                        }
+                        if (type.equals("Academic")) {
+                            return new Academic(
+                                    eventId,
+                                    eventResults.getString("name"),
+                                    eventResults.getDate("date"),
+                                    eventResults.getInt("max_participants"),
+                                    org,
+                                    eventResults.getString("subject"),
+                                    eventResults.getString("speaker")
+                            );
+                        }
 
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
 
         return null;
     }
+
 }
 
 

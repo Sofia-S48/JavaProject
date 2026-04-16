@@ -3,6 +3,7 @@ import  DAO.ParticipantDAO;
 import Model.Participant;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ParticipantController {
     //removed redundancy of using participant list, and now fully uses the DAOS
