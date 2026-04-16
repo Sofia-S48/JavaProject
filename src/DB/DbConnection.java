@@ -18,6 +18,7 @@ public class DbConnection {
     public static Connection getConnection()
     {
         try {
+            System.out.println("Connected to DB!");
             return DriverManager.getConnection(URL, UserName, Password);
         }
         catch (Exception e)

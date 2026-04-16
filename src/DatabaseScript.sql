@@ -1,6 +1,7 @@
 CREATE DATABASE EventManagement;
 USE EventManagement;
-
+--Realized that we weren't storing our subclasses properly and missing variables for table Event:
+    -- Created a new database with this script to fix all the errors
 -- =========================
 -- ORGANIZER TABLE
 -- =========================

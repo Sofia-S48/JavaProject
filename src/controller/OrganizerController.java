@@ -57,9 +57,10 @@ public class OrganizerController {
 
 //    remove
 
-    public void deleteOrganizer(int id) throws SQLException
+    public boolean deleteOrganizer(int id) throws SQLException
     {
         organizerDAO.deleteOrganizer(id);
         organizers.removeIf(o -> o.getOrganizerId() == id);
+        return false;
     }
 }
