@@ -28,6 +28,7 @@ public class EventDAO {
             Connection myConnection = DbConnection.getConnection();
             if (myConnection != null) {
                 try{
+                    System.out.println("DAO addEvent called");
                 PreparedStatement myQuery = myConnection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
 
                 myQuery.setString(1, e.getName());
@@ -36,7 +37,7 @@ public class EventDAO {
                 myQuery.setInt(4, e.getOrganizer().getOrganizerId());
 
                 if (e instanceof Professional) {
-                    myQuery.setString(5, "Proffessional");
+                    myQuery.setString(5, "Professional");
 
                     myQuery.setString(6, ((Professional) e).getSubject());
                     myQuery.setString(7, ((Professional) e).getIndustry());
@@ -59,7 +60,8 @@ public class EventDAO {
                     myQuery.setString(9, ((Academic) e).getSpeaker());
                 }
 
-                myQuery.executeUpdate();
+                int rows = myQuery.executeUpdate();
+                System.out.println("Rows inserted: " + rows);
 
                 ResultSet rs = myQuery.getGeneratedKeys();
                 if (rs.next()) {

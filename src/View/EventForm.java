@@ -70,11 +70,9 @@ public class EventForm extends JFrame {
     public EventForm() {
         setContentPane(MainPanel);
         setTitle("Event Form");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(500, 500);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        pack();
         setLocationRelativeTo(null);
-        setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         controller = new EventController();
 
         saveButton.addActionListener(e -> addAcademicEvent());
@@ -90,6 +88,7 @@ public class EventForm extends JFrame {
 
     public void addAcademicEvent() {
         try{
+            System.out.println("Adding event...");
             String name = EventnameText.getText();
             int maxParticipants = Integer.parseInt(enterMaxParticipantsTextField.getText());
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

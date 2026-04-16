@@ -1,6 +1,5 @@
 package controller;
 
-import Model.Event;
 import Model.Registration;
 import DAO.RegistrationDAO;
 
@@ -18,13 +17,12 @@ public class RegistrationController {
         registrationDAO = new RegistrationDAO();
     }
 // add
-    public static Registration  addRegistration(Registration r) throws SQLException {
+    public static void addRegistration(Registration r) throws SQLException {
         if (registrationDAO.isParticipantRegistered(r.getParticipantId(), r.getEventId())) {
             System.out.println("Participant already registered for this event!");
         }
         registrationDAO.addRegistration(r);
         registrations.add(r);
-        return r;
     }
 
 //    getAll
