@@ -19,8 +19,8 @@ public class Event {
         this.organizer = organizer;
     }
 
-    public Event(String eventName, String social) {
-    }
+
+
 
     public int getEventId() {
         return eventId;
@@ -73,9 +73,4 @@ public class Event {
                 '}';
     }
 
-    public void showParticipants() {
-    }
-
-    public void registerParticipant(Participant participant) {
-    }
 }
