@@ -1,13 +1,9 @@
-
-import Model.*; // i looked up that this will import everything in our model folder. makes things look neater.
-import Model.*;
 import controller.EventController;
 import controller.ParticipantController;
 import controller.ExportController;
 import controller.RegistrationController;
 import controller.OrganizerController;
 
-import java.awt.desktop.SystemSleepEvent;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -496,4 +492,3 @@ public class Main {
 //            }
 //
 //        } while (choice != 4);
-

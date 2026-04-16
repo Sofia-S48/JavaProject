@@ -1,7 +1,6 @@
 package controller;
 
 import DAO.OrganizerDAO;
-import Model.Event;
 import Model.Organizer;
 
 import java.sql.SQLException;
@@ -22,10 +21,10 @@ public class OrganizerController {
 
 //    add Organizer
 
-    public Organizer addOrganizer(Organizer o) throws SQLException
+    public void addOrganizer(Organizer o) throws SQLException
     {
-        return organizerDAO.addOrganizer(o);
-
+        organizerDAO.addOrganizer(o);
+        organizers.add(o);
     }
 
     //getAll
@@ -43,37 +42,24 @@ public class OrganizerController {
     }
 
 //    update
-    public boolean updateOrganizer (Organizer o) throws SQLException
+    public void updateOrganizer (Organizer o) throws SQLException
     {
-        boolean success = organizerDAO.updateOrganizer(o);
+        organizerDAO.updateOrganizer(o);
 
-        if(success) {
-            for (int i = 0; i < organizers.size(); i++) {
-                if (organizers.get(i).getOrganizerId() == o.getOrganizerId()) {
-                    organizers.set(i, o);
-                }
+        for (int i = 0; i <organizers.size(); i++)
+        {
+            if (organizers.get(i).getOrganizerId() == o.getOrganizerId())
+            {
+                organizers.set(i,o);
             }
         }
-        return success;
     }
 
 //    remove
 
-    public boolean deleteOrganizer(int id) throws SQLException
+    public void deleteOrganizer(int id) throws SQLException
     {
-        boolean success = organizerDAO.deleteOrganizer(id);
-
-        if(success){
-            organizers.removeIf(o -> o.getOrganizerId() == id);
-        }
-        return success;
-
-    }
-
-    public void displayOrganizers() throws SQLException {
-        List<Organizer> allOrganizers =getAllOrganizers();
-        for (int i = 0; i < allOrganizers.size(); i++) {
-            System.out.println(allOrganizers.get(i));
-        }
+        organizerDAO.deleteOrganizer(id);
+        organizers.removeIf(o -> o.getOrganizerId() == id);
     }
 }

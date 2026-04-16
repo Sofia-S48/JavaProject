@@ -15,29 +15,35 @@ public class RegistrationDAO {
 //     participantId;
 //     registrationDate;
 
-    public void addRegistration(Registration r) throws SQLException {
-        try {
+    public Registration addRegistration(Registration r) throws SQLException {
             String query =" insert into registrations ( event_id, participant_id, registrationDate)  Values (?,?,?)";
 
             Connection myConnection = DbConnection.getConnection();
             if(myConnection!=null)
             {
+                try{
 
-                PreparedStatement myQuery = myConnection.prepareStatement(query);
+                PreparedStatement myQuery = myConnection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
                 myQuery.setInt(1,r.getEventId());
                 myQuery.setInt(2,r.getParticipantId());
                 myQuery.setDate(3, Date.valueOf((LocalDate) r.getRegistrationDate()));
 
-                myQuery.executeUpdate();
+                    myQuery.executeUpdate();
 
-                System.out.println("Registration added successfully");
-            }
+                    ResultSet rs = myQuery.getGeneratedKeys();
+                    if (rs.next()) {
+                        r.setRegistrationId(rs.getInt(1));
+                    }
+
+
+            }catch (Exception e )
+                {
+                    e.printStackTrace();
+                }
 
         }
-        catch (Exception e )
-        {
-            e.printStackTrace();
-        }
+            return null;
+
     }
 
     public List<Registration> getAllRegistrations()
@@ -61,7 +67,7 @@ public class RegistrationDAO {
                     int participantId= registrationResults.getInt("participant_id");
                     java.util.Date registrationDate = registrationResults.getDate("redistrationDate");
 
-                    Registration reg =new Registration(registrationId, eventId, participantId);
+                    Registration reg =new Registration(registrationId, eventId, participantId, registrationDate);
                     allRegistrations.add(reg);
                 }
                 return allRegistrations;
@@ -108,29 +114,25 @@ public class RegistrationDAO {
     }
 
 
-    public void removeRegistration(int registrationId) throws SQLException{
-        try{
+    public boolean removeRegistration(int registrationId) throws SQLException{
             String query = "DELETE FROM registrations WHERE registration_id = ?";
 
             Connection myConnection = DbConnection.getConnection();
 
             if(myConnection != null){
+
+                try{
                 PreparedStatement myQuery = myConnection.prepareStatement(query);
                 myQuery.setInt(1, registrationId);
 
-                int rowsDelete = myQuery.executeUpdate();
+                return myQuery.executeUpdate() > 0;
 
-                if(rowsDelete >0)
+                } catch (Exception e)
                 {
-                    System.out.println("Registration deleted");
-                }else {
-                    System.out.println("Registration not found.");
+                    e.printStackTrace();
                 }
             }
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+            return false;
     }
 
     public boolean isParticipantRegistered(int eventId, int participantId) throws SQLException {
