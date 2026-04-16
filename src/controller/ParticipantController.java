@@ -2,7 +2,8 @@ package controller;
 import  DAO.ParticipantDAO;
 import Model.Participant;
 
-import java.sql.SQLException;
+import Model.Participant;
+
 import java.util.ArrayList;
 import java.util.List;
 

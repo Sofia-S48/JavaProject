@@ -2,7 +2,8 @@ package controller;
 import DAO.EventDAO;
 import Model.Event;
 
-import java.sql.SQLException;
+import Model.Event;
+
 import java.util.ArrayList;
 public class EventController {
     //removed redundancy of using event list, and now fully uses the DAOS
