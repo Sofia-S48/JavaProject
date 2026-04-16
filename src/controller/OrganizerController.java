@@ -24,7 +24,7 @@ public class OrganizerController {
     public void addOrganizer(Organizer o) throws SQLException
     {
         organizerDAO.addOrganizer(o);
-        organizers.add(o);
+//        organizers.add(o); // AP: This organizer does not have any id or has an INCORRECT ID  -- same issue as Registration
     }
 
     //getAll

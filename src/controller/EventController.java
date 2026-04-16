@@ -14,6 +14,8 @@ public class EventController {
 
     public void addEvent(Event event) {
         try {
+
+            eventDAO.addEvent(event);
         } catch (Exception e) {
             e.printStackTrace();
         }
