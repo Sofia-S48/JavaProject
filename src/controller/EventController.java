@@ -14,11 +14,8 @@ public class EventController {
         eventDAO = new EventDAO();
     }
 
-    public void addEvent(Event event) {
-        try {
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public Event addEvent(Event event) throws SQLException {
+       return eventDAO.addEvent(event);
     }
 
     public Event searchEventById(int id) {

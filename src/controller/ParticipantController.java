@@ -5,6 +5,7 @@ import Model.Participant;
 import Model.Participant;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ParticipantController {
     //removed redundancy of using participant list, and now fully uses the DAOS
@@ -14,48 +15,36 @@ public class ParticipantController {
         participantDAO = new ParticipantDAO();
     }
 
-    public void addParticipants(Participant participant) {
-        try {
-            participantDAO.addParticipant(participant);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public Participant addParticipants(Participant participant) throws SQLException {
+
+           return participantDAO.addParticipant(participant);
+
 
     }
     // removeParticipants**
-    public void removeParticipants (int id) {
-        try {
-            participantDAO.removeParticipant(id);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public boolean removeParticipants (int id) throws SQLException {
+
+          return   participantDAO.removeParticipant(id);
+
     }
 
-    public Participant searchParticipantById(int id) {
-        try {
+    public Participant searchParticipantById(int id) throws SQLException {
             return participantDAO.getById(id);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+
+
     }
 
-    public ArrayList<Participant> getAllParticipants() {
-        try {
-            return new ArrayList<>(participantDAO.getAllParticipants());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ArrayList<>();
+    public List<Participant> getAllParticipants() throws SQLException {
+
+            return participantDAO.getAllParticipants();
+
     }
 
-    public void displayParticipants() {
-        ArrayList<Participant> allParticipants = getAllParticipants();
+    public void displayParticipants() throws SQLException {
+        List<Participant> allParticipants = getAllParticipants();
         for (int i = 0; i < allParticipants.size(); i++) {
             System.out.println(allParticipants.get(i));
         }
     }
 
-    public void addParticipant(Participant participant) {
-    }
 }
