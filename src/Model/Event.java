@@ -3,7 +3,7 @@ package Model;
 import java.util.Date;
 
 
-public abstract class Event {
+public class Event {
     protected int eventId;
     protected String name;
     protected Date date;
@@ -17,6 +17,9 @@ public abstract class Event {
         this.date = date;
         this.maxParticipants = maxParticipants;
         this.organizer = organizer;
+    }
+
+    public Event(String eventName, String social) {
     }
 
     public int getEventId() {
@@ -68,5 +71,11 @@ public abstract class Event {
                 ", maxParticipants=" + maxParticipants +
                 ", organizer=" + organizer +
                 '}';
+    }
+
+    public void showParticipants() {
+    }
+
+    public void registerParticipant(Participant participant) {
     }
 }

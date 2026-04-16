@@ -15,6 +15,11 @@ public class Participant  { // changed class to not extend Event.
     }
 
 
+    public Participant(String participantName, int participantId) {
+        super();
+    }
+
+
     public int getParticipantId() {
         return participantId;
     }
@@ -39,6 +44,8 @@ public class Participant  { // changed class to not extend Event.
     public void setContactInformation(String contactInformation) {
         this.contactInformation = contactInformation;
     }
+
+
 
     @Override
     public String toString() {
