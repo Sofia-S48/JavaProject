@@ -98,7 +98,7 @@ public class EventForm extends JFrame {
             Organizer organizer = new Organizer (organizerId,"","");
             String subject = subjectTextfield.getText();
             String speaker = speakerTextfield.getText();
-            Academic academic = new Academic (name,date,maxParticipants,organizer,subject, speaker);
+            Academic academic = new Academic (name,dates,maxParticipants,organizer,subject, speaker);
 
             controller.addEvent(academic);
             JOptionPane.showMessageDialog(this, "Event Added!");
@@ -140,7 +140,10 @@ public class EventForm extends JFrame {
             Organizer organizer = new Organizer(organizerId, "", "");
             String subject = ProfsubjectTextField.getText();
             String industry = industryTextFields.getText();
-            Professional professional = new Professional(name, date, maxParticipants, organizer, subject, industry);
+            Professional professional = new Professional(name, dates, maxParticipants, organizer, subject, industry);
+
+            controller.addEvent(professional);
+            JOptionPane.showMessageDialog(this, "Event Added!");
         }   catch (Exception e)
             {
                 e.printStackTrace();
