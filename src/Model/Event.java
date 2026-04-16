@@ -81,9 +81,4 @@ public class Event {
                 '}';
     }
 
-    public void showParticipants() {
-    }
-
-    public void registerParticipant(Participant participant) {
-    }
 }
