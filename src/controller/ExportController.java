@@ -7,12 +7,13 @@ import Model.Registration;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class ExportController {
 
-    public void exportParticipantsToTXT(List<Participant> participants, String fileName) throws IOException {
+    public void exportParticipantsToTXT(ArrayList<Participant> participants, String fileName) throws IOException {
         FileWriter writer = new FileWriter(fileName);
         writer.write("===== Participants List =====\n");
         for (Participant p : participants)

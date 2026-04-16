@@ -5,6 +5,11 @@ public class Organizer {
     protected String name;
     protected String email;
 
+    public Organizer( String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
     public Organizer(int organizerId, String name, String email) {
         this.organizerId = organizerId;
         this.name = name;

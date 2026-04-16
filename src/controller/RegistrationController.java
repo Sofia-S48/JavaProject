@@ -1,5 +1,6 @@
 package controller;
 
+import Model.Event;
 import Model.Registration;
 import DAO.RegistrationDAO;
 
@@ -8,28 +9,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RegistrationController {
-//    private ArrayList<Registration> registrations;
-    private RegistrationDAO registrationDAO;
+    private static ArrayList<Registration> registrations;
+    private static RegistrationDAO registrationDAO;
 
 //constructor
     public RegistrationController() {
-//        registrations = new ArrayList<>();
+        registrations = new ArrayList<>();
         registrationDAO = new RegistrationDAO();
     }
 // add
-    public void addRegistration(Registration r) throws SQLException {
+
+//    add eventFullException
+    public static void addRegistration(Registration r) throws SQLException {
         if (registrationDAO.isParticipantRegistered(r.getParticipantId(), r.getEventId())) {
-            // TODO should also check if event is full
             System.out.println("Participant already registered for this event!");
             return;
         }
         registrationDAO.addRegistration(r);
-//        registrations.add(r); // AP: this registration would not have any ID -- also why hold all registrations in memory?
+        registrations.add(r);
     }
 
 //    getAll
 
-    public List<Registration> getAllRegistration() throws SQLException{
+    public ArrayList<Registration> getAllRegistration() throws SQLException{
         registrations= (ArrayList<Registration>) registrationDAO.getAllRegistrations();
         return registrations;
 
@@ -45,21 +47,16 @@ public class RegistrationController {
 //     Remove
     public void deleteRegistration(int id) throws SQLException{
         registrationDAO.removeRegistration(id);
-//        registrations.removeIf(r ->r.getRegistrationId() == id); //no need for this because this way it will fetch from the database first.
+        registrations.removeIf(r ->r.getRegistrationId() == id);
     }
 
-
-    public void displayRegistrations() {
-        try {
-            List<Registration> registrations = getAllRegistration();
-            for (int i = 0; i < registrations.size(); i++) {
-                Registration registration = registrations.get(i);
-                System.out.println(registration);
-            }
-            // AP: This in memory list would not have any IDs
-            // Should pull this from the DB, hold in memory and then update "on refresh" when new registration is added
-        } catch (Exception e) {
-            e.printStackTrace();
+    public void displayRegistrations() throws SQLException {
+        ArrayList<Registration> allRegistrations = getAllRegistration();
+        for (int i = 0; i < allRegistrations.size(); i++) {
+            System.out.println(allRegistrations.get(i));
         }
     }
+
+
+
 }
