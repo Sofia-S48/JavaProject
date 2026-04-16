@@ -1,16 +1,8 @@
 
 import Model.*; // i looked up that this will import everything in our model folder. makes things look neater.
-import Model.*;
 import controller.EventController;
 import controller.ParticipantController;
-import controller.ExportController;
-import controller.RegistrationController;
-import controller.OrganizerController;
 
-import java.awt.desktop.SystemSleepEvent;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -18,12 +10,10 @@ public class Main {
     public static void main(String[] args) throws IOException, SQLException {
 
         Scanner scanner = new Scanner(System.in);
-
+        Event event = null;
+        //added Event and Participant Controller as a test
         EventController eventController = new EventController();
         ParticipantController participantController = new ParticipantController();
-        ExportController exportController = new ExportController();
-        OrganizerController organizerController = new OrganizerController();
-        RegistrationController registrationController = new RegistrationController();
 
         int choice;
 
@@ -140,6 +130,9 @@ public class Main {
                                 eventController.searchEventById(searchId);
                                 break;
 
+                        if (event != null) {
+                            eventController.addEvent(event);
+                            System.out.println("Event created successfully!");
                         }
 
                     } while (eventChoice != 0);
@@ -165,78 +158,20 @@ public class Main {
                                 exportController.exportParticipantsToTXT((ArrayList<Participant>) participantController.getAllParticipants(), fileName);
                                 break;
 
-                            case 2:
-                                System.out.println("What would you like your file name to be?");
-                                fileName = scanner.nextLine();
-                                exportController.exportEventsToTXT(eventController.getAllEvents(), fileName);
-                                break;
-
-                            case 3:
-                                System.out.println("What would you like your file name to be?");
-                                fileName = scanner.nextLine();
-                                exportController.exportRegistrationsToTXT(registrationController.getAllRegistration(), fileName);
-                                break;
-                        }
-
-                    }while (exportChoice != 0);
+                        Participant participant = new Participant(participantId, name, contactInformation);
+                        participantController.addParticipant(participant);
+                        System.out.println("Participant created successfully");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     break;
 
                 case 3:
                     int organizerChoice;
 
-                    do{
-                        System.out.println("n/==== Organizer Menu ====");
-                        System.out.println("1. Add Organier");
-                        System.out.println("2. Remove Organizer");
-                        System.out.println("3. Update Organizer");
-                        System.out.println("4. Display all Organizers");
-                        System.out.println("5. Search Organizer by Id");
-                        System.out.println("0. Back");
-                        organizerChoice = scanner.nextInt();
-                        scanner.nextLine();
-
-                        switch (organizerChoice)
-                        {
-                            case 1:
-                                System.out.println("Please enter the Organizer Id");
-                                int organizerId = scanner.nextInt();
-                                scanner.nextLine();
-
-                                System.out.println("Please enter Organizer name");
-                                String organizerName = scanner.nextLine();
-
-                                System.out.println("Please enter organizer email");
-                                String organizerEmail = scanner.nextLine();
-
-                                Organizer organizer = new Organizer(organizerId, organizerName, organizerEmail);
-
-                                organizerController.addOrganizer(organizer);
-                                break;
-                            case 2:
-                                System.out.println("Enter Organizer ID to remove:");
-                                int removeId = scanner.nextInt();
-                                scanner.nextLine();
-
-                                boolean success = organizerController.deleteOrganizer(removeId);
-                                if(success) {
-                                    System.out.println("Organizer Deleted");
-                                }else {
-                                    System.out.println("Organizer not found");
-                                }
-                                break;
-
-                            case 3:
-                                System.out.println("Please enter the Organizer Id you would like to update");
-                                int organizerIdUpdate = scanner.nextInt();
-                                scanner.nextLine();
-
-                                System.out.println("Please enter Organizer name");
-                                String organizerNameUpdate = scanner.nextLine();
-
-                                System.out.println("Please enter organizer email");
-                                String organizerEmailUpdate = scanner.nextLine();
-
-                                Organizer updatedOrganizer = new Organizer(organizerIdUpdate, organizerNameUpdate, organizerEmailUpdate);
+                        for (Participant p : participantController.getAllParticipants()) {
+                            System.out.println(p);
+                        }
 
                                 organizerController.updateOrganizer(updatedOrganizer);
                                 break;

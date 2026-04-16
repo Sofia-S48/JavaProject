@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RegistrationController {
-    private static ArrayList<Registration> registrations;
-    private static RegistrationDAO registrationDAO;
+    private ArrayList<Registration> registrations;
+    private RegistrationDAO registrationDAO;
 
 //constructor
     public RegistrationController() {
@@ -18,9 +18,7 @@ public class RegistrationController {
         registrationDAO = new RegistrationDAO();
     }
 // add
-
-//    add eventFullException
-    public static void addRegistration(Registration r) throws SQLException {
+    public void addRegistration(Registration r) throws SQLException {
         if (registrationDAO.isParticipantRegistered(r.getParticipantId(), r.getEventId())) {
             System.out.println("Participant already registered for this event!");
             return;
@@ -31,7 +29,7 @@ public class RegistrationController {
 
 //    getAll
 
-    public ArrayList<Registration> getAllRegistration() throws SQLException{
+    public List<Registration> getAllRegistration() throws SQLException{
         registrations= (ArrayList<Registration>) registrationDAO.getAllRegistrations();
         return registrations;
 
@@ -49,10 +47,11 @@ public class RegistrationController {
         registrationDAO.removeRegistration(id);
     }
 
-    public void displayRegistrations() throws SQLException {
-        ArrayList<Registration> allRegistrations = getAllRegistration();
-        for (int i = 0; i < allRegistrations.size(); i++) {
-            System.out.println(allRegistrations.get(i));
+
+    public void displayRegistrations() {
+        for (int i = 0; i < registrations.size(); i++) {
+            Registration registration = registrations.get(i);
+            System.out.println(registration);
         }
     }
 

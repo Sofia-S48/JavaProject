@@ -2,9 +2,6 @@ package controller;
 import  DAO.ParticipantDAO;
 import Model.Participant;
 
-import Model.Participant;
-
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,36 +13,48 @@ public class ParticipantController {
         participantDAO = new ParticipantDAO();
     }
 
-    public Participant addParticipants(Participant participant) throws SQLException {
-
-           return participantDAO.addParticipant(participant);
-
+    public void addParticipants(Participant participant) {
+        try {
+            participantDAO.addParticipant(participant);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
     // removeParticipants**
-    public boolean removeParticipants (int id) throws SQLException {
-
-          return   participantDAO.removeParticipant(id);
-
+    public void removeParticipants (int id) {
+        try {
+            participantDAO.removeParticipant(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public Participant searchParticipantById(int id) throws SQLException {
+    public Participant searchParticipantById(int id) {
+        try {
             return participantDAO.getById(id);
-
-
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    public List<Participant> getAllParticipants() throws SQLException {
-
-            return participantDAO.getAllParticipants();
-
+    public ArrayList<Participant> getAllParticipants() {
+        try {
+            return new ArrayList<>(participantDAO.getAllParticipants());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
     }
 
-    public void displayParticipants() throws SQLException {
-        List<Participant> allParticipants = getAllParticipants();
+    public void displayParticipants() {
+        ArrayList<Participant> allParticipants = getAllParticipants();
         for (int i = 0; i < allParticipants.size(); i++) {
             System.out.println(allParticipants.get(i));
         }
     }
 
+    public void addParticipant(Participant participant) {
+    }
 }
