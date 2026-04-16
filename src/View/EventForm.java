@@ -72,7 +72,7 @@ public class EventForm extends JFrame {
         setTitle("Event Form");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 500);
-        setLocation(null);
+        setLocationRelativeTo(null);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         controller = new EventController();
@@ -119,7 +119,7 @@ public class EventForm extends JFrame {
             Organizer organizer = new Organizer (organizerId,"","");
             String theme = socialTheme.getText();
 
-            Social social = new Social (name,date,maxParticipants,organizer,theme);
+            Social social = new Social (name,dates,maxParticipants,organizer,theme);
 
             controller.addEvent(social);
             JOptionPane.showMessageDialog(this, "Event Added!");

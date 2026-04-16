@@ -12,9 +12,7 @@ public class Social extends Event {
         this.theme= theme;
     }
 
-    public Social(String name, JTextField date, int maxParticipants, Organizer organizer, String theme) {
-        super();
-    }
+
 
     public Social(String name, Date date, int maxParticipants, Organizer organizer, String theme) {
         super(name, date, maxParticipants, organizer);
