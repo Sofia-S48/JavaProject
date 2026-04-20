@@ -38,14 +38,12 @@ public class EventDAO {
 
                 if (e instanceof Professional) {
                     myQuery.setString(5, "Professional");
-
                     myQuery.setString(6, ((Professional) e).getSubject());
                     myQuery.setString(7, ((Professional) e).getIndustry());
                     myQuery.setString(8, null);
                     myQuery.setString(9, null);
                 } else if (e instanceof Social) {
                     myQuery.setString(5, "Social");
-
                     myQuery.setString(6, null);
                     myQuery.setString(7, null);
                     myQuery.setString(8, ((Social) e).getTheme());
@@ -53,7 +51,6 @@ public class EventDAO {
 
                 } else if (e instanceof Academic) {
                     myQuery.setString(5, "Academic");
-
                     myQuery.setString(6, ((Academic) e).getSubject());
                     myQuery.setString(7, null);
                     myQuery.setString(8, null);
@@ -142,10 +139,10 @@ public class EventDAO {
                     Organizer organizer = new Organizer(eventResults.getInt("organizer_id"), "", "");
 
                     String type = eventResults.getString("event_type");
-
+//tried adding .toLowerCase() to see if that would help with the issue, thought it might be getting wrong because it was written different or with capitals.
                     Event event = null;
-                    switch (type){
-                        case "Professional":
+                    switch (type.toLowerCase()){
+                        case "professional":
                             event = new Professional(
                                     eventId, name, date, maxParticipants, organizer,
                                     eventResults.getString("subject"),
@@ -153,14 +150,14 @@ public class EventDAO {
                             );
                             break;
 
-                        case "Social":
+                        case "social":
                             event = new Social(
                                     eventId, name, date, maxParticipants, organizer,
                                     eventResults.getString("theme")
                             );
                             break;
 
-                        case "Academic":
+                        case "academic":
                             event = new Academic(
                                     eventId, name, date, maxParticipants, organizer,
                                     eventResults.getString("subject"),
